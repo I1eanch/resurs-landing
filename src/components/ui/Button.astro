@@ -1,0 +1,61 @@
+---
+/**
+ * Полиморфная кнопка: с href рендерит <a>, без — <button>.
+ *
+ * transition перечисляет свойства поимённо. Это не педантизм:
+ * `transition: all` заставляет браузер отслеживать каждое свойство
+ * и ловить незапланированные переходы.
+ *
+ * Правило дизайн-системы: одна .primary-кнопка на блок.
+ */
+interface Props {
+  variant?: 'primary' | 'line' | 'ghost';
+  size?: 'md' | 'lg';
+  href?: string;
+  fullWidth?: boolean;
+  class?: string;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href,
+  fullWidth = false,
+  class: className = '',
+} = Astro.props;
+
+// Цвет рамки задаёт КАЖДЫЙ вариант. В базе его нет намеренно: две утилиты
+// border-color с одинаковой специфичностью разрешаются порядком в готовом
+// CSS, а не порядком в атрибуте class — и `border-transparent` из базы
+// молча съедал рамку контурной кнопки.
+const base =
+  'inline-flex items-center justify-center gap-2.5 font-body font-semibold rounded-btn no-underline cursor-pointer border ' +
+  'transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-standard';
+
+const sizes: Record<string, string> = {
+  md: 'text-[16px] px-[30px] py-4',
+  lg: 'text-[17px] px-10 py-[19px]',
+};
+
+const variants: Record<string, string> = {
+  primary: 'border-transparent bg-accent text-on-accent shadow-btn hover:bg-accent-strong hover:-translate-y-0.5',
+  line: 'border-line-strong bg-transparent text-ink hover:border-accent hover:text-accent-strong',
+  ghost: 'border-deep-line bg-transparent text-on-deep hover:border-on-deep hover:bg-[rgba(234,246,244,0.06)]',
+};
+
+const classes = [base, sizes[size], variants[variant], fullWidth && 'w-full', className]
+  .filter(Boolean)
+  .join(' ');
+---
+
+{
+  href ? (
+    <a href={href} class={classes}>
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={classes}>
+      <slot />
+    </button>
+  )
+}

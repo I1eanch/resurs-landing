@@ -1,0 +1,46 @@
+---
+/**
+ * Полоса доверия. Счётчик анимирует только цифру — знак «+»
+ * вынесен в отдельный span, иначе data-count перезапишет его.
+ */
+const stats = [
+  { count: 3000, label: 'учеников школы' },
+  { count: 300, label: 'восстановили здоровье с Мариной лично' },
+  { count: 200, label: 'практикующих нутрициологов' },
+];
+---
+
+<div class="border-b border-line bg-surface-alt">
+  <div
+    class="mx-auto flex max-w-[1140px] flex-col gap-9 px-6 py-11 lg:flex-row lg:items-center lg:justify-between lg:gap-14"
+  >
+    <p class="flex items-center gap-3.5 font-display text-h4 font-semibold text-ink">
+      <span class="grid h-11 w-11 shrink-0 place-items-center rounded-card bg-accent-wash text-accent-strong">
+        <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+          <path d="M12 2l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V5l7-3z" stroke="currentColor" stroke-width="1.5"></path>
+          <path
+            d="M8.5 12l2.5 2.5L16 9.5"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      Под руководством Марины Жигульской
+    </p>
+
+    <div class="stagger-grid grid gap-8 sm:grid-cols-3 lg:gap-12">
+      {
+        stats.map((s) => (
+          <div class="border-t border-line-strong pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
+            <p class="font-display text-[28px] font-semibold leading-none text-deep">
+              <b data-count={s.count}>0</b>
+              <span>+</span>
+            </p>
+            <span class="mt-2 block text-small text-muted">{s.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

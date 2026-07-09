@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import approachVisual from '../assets/img/approach-visual.png';
+
+const checks = [
+  {
+    title: 'Системный подход, а не набор рецептов',
+    text: 'Организм как единое целое: где на самом деле сломалась система и что тянет за собой остальное.',
+  },
+  {
+    title: 'Критическое мышление',
+    text: 'Учим находить причинно-следственные связи и принимать решения, а не действовать по шаблону.',
+  },
+  {
+    title: 'Глубокая база',
+    text: 'Анатомия, физиология и биохимия — фундамент, которого нет на двухмесячных курсах.',
+  },
+  {
+    title: 'Реальная практика и продвижение',
+    text: 'Ведение живого клиента и навык находить клиентов — вы выходите не просто с документом.',
+  },
+];
+
+const them = [
+  '«Симптом → добавка» без причины',
+  '1–2 месяца и поверхностная база',
+  'Всем одно меню и километровые схемы',
+  'Документ есть — клиентов нет',
+];
+
+const us = [
+  'Организм как система: причина, не симптом',
+  '8 месяцев глубокой системной базы',
+  'Критическое мышление и решения под человека',
+  'Первые клиенты уже во время учёбы',
+];
+---
+
+<Section id="approach" bg="paper">
+  <div class="grid gap-x-16 gap-y-14 lg:grid-cols-2 lg:items-start">
+    <div class="slide-left">
+      <SectionLabel>Подход школы</SectionLabel>
+      <h2 class="text-h2 text-ink">Мы учим не запоминать добавки, а думать</h2>
+      <p class="mt-6 max-w-[58ch] text-lead text-muted">
+        Большинство курсов работают по схеме «симптом → добавка, симптом → диета». Мы учим другому: смотреть на организм
+        как на единое целое, собирать его как пазл и понимать, с чего начинать восстановление. В основе — то, как нас
+        придумала природа.
+      </p>
+
+      <ul class="mt-10 flex flex-col gap-6">
+        {
+          checks.map((c) => (
+            <li class="flex gap-4">
+              <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent-wash text-accent-strong">
+                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+                  <path
+                    d="M5 13l4 4L19 7"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <div>
+                <b class="block font-body text-body font-semibold text-ink">{c.title}</b>
+                <span class="mt-1 block text-small text-muted">{c.text}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="relative slide-right">
+      {/* Декоративная подложка. Только transform-параллакс — .deco-glow не должен
+          оборачивать карточку, иначе поедет и она. */}
+      <div class="deco-glow pointer-events-none absolute -right-10 -top-16 z-0 w-[420px] max-w-none">
+        <Image
+          src={approachVisual}
+          alt=""
+          widths={[420, 840]}
+          sizes="420px"
+          format="webp"
+          quality={78}
+          class="h-auto w-full opacity-[0.18]"
+        />
+      </div>
+
+      <div class="relative z-10 overflow-hidden rounded-card border border-line bg-surface shadow-card">
+        <div class="p-8">
+          <h4 class="text-h4 text-ink">Обычные курсы</h4>
+          <ul class="mt-5 flex flex-col gap-3.5">
+            {
+              them.map((t) => (
+                <li class="flex items-start gap-3 text-body text-muted">
+                  <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-[18px] w-[18px] shrink-0 text-negative" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                  {t}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="deep rounded-card bg-deep p-8 text-on-deep">
+          <h4 class="text-h4 text-on-deep">Школа «Ресурс»</h4>
+          <ul class="mt-5 flex flex-col gap-3.5">
+            {
+              us.map((u) => (
+                <li class="flex items-start gap-3 text-body text-on-deep-muted">
+                  <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-[18px] w-[18px] shrink-0 text-accent-soft" aria-hidden="true">
+                    <path
+                      d="M5 13l4 4L19 7"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                  {u}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>

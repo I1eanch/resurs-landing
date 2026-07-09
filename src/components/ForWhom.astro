@@ -1,0 +1,60 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+const cards = [
+  {
+    num: '01',
+    title: 'Хочу новую профессию',
+    text: 'Ищете дело, которое всегда востребовано, можно вести онлайн и совмещать с текущей жизнью.',
+  },
+  {
+    num: '02',
+    title: 'Хочу разобраться в здоровье',
+    text: 'Устали от противоречивых советов и хотите понять свой организм и здоровье близких изнутри.',
+  },
+  {
+    num: '03',
+    title: 'Уже в ЗОЖ, бьюти или фитнесе',
+    text: 'Тренер, косметолог, health-коуч — добавьте системную экспертность и новый доход.',
+  },
+  {
+    num: '04',
+    title: 'Врач или специалист',
+    text: 'Хотите освоить нутрициологический подход и работать с причинами, а не только с симптомами.',
+  },
+  {
+    num: '05',
+    title: 'Прошёл(ла) короткий курс',
+    text: 'Знаний нахватались, но нет системной базы и уверенности брать клиентов и отвечать за результат.',
+  },
+  {
+    num: '06',
+    title: 'Хочу помогать людям',
+    text: 'Вам важно помогать людям восстанавливать здоровье, и вы хотите сделать это своей профессией — с реальной пользой и результатом.',
+  },
+];
+---
+
+<Section id="for-whom" bg="tint">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Кому подходит</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Для тех, кто хочет разбираться в здоровье по-настоящему</h2>
+    <p class="mt-4 text-lead text-muted">
+      Медицинское образование не обязательно. Ведём с нуля — от того, как устроен организм, до самостоятельной
+      консультации.
+    </p>
+  </div>
+
+  <div class="stagger-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      cards.map((c) => (
+        <article class="card-hover rounded-card border border-line bg-surface p-7 shadow-card">
+          <span class="block font-display text-[40px] font-semibold leading-none text-accent/30">{c.num}</span>
+          <h3 class="mt-4 text-h4 font-semibold text-ink">{c.title}</h3>
+          <p class="mt-2.5 text-small text-muted">{c.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>

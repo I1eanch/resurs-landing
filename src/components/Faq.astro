@@ -1,0 +1,46 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import { faq } from '../data/faq';
+---
+
+{/* max-w-[820px]! — контейнер Section уже несёт max-w-[1140px];
+    без ! победитель между двумя max-w зависел бы от порядка в бандле. */}
+<Section bg="tint" containerClass="max-w-[820px]!">
+  <div class="rv mb-12">
+    <SectionLabel>Частые вопросы</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Отвечаем на главное</h2>
+  </div>
+
+  <div class="faq-stagger space-y-3">
+    {
+      faq.map((item, i) => (
+        <div class="faq-item rounded-card border border-line bg-surface">
+          <button
+            class="faq-q flex w-full items-center justify-between gap-4 p-6 text-left"
+            aria-expanded="false"
+            id={`faq-q-${i}`}
+            aria-controls={`faq-a-${i}`}
+          >
+            <span class="text-h4 font-semibold text-ink">{item.q}</span>
+            <span
+              class="plus grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent-wash text-accent-strong"
+              aria-hidden="true"
+            >
+              <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+            </span>
+          </button>
+
+          {/* Ровно один прямой потомок <div>: на нём держится grid-template-rows 0fr → 1fr */}
+          <div class="faq-a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`}>
+            <div>
+              <p class="px-6 pb-6 text-small text-muted" set:html={item.a} />
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

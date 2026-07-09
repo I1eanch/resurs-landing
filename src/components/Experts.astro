@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import marina from '../assets/img/marina-zhigulskaya.jpg';
+import asel from '../assets/img/asel-tumanova.jpg';
+import alena from '../assets/img/alena-belyanina.jpg';
+
+/* Кадры разного формата (портрет, горизонталь 2000×1333, квадрат 1024×1024)
+   приведены к одной пропорции 4/5 — object-top держит лицо в кадре. */
+const experts = [
+  {
+    photo: marina,
+    alt: 'Марина Жигульская',
+    role: 'Эксперт · руководитель школы',
+    name: 'Марина Жигульская',
+    bullets: [
+      'Нутрициолог с опытом более 6 лет',
+      'Лично помогла восстановить здоровье более 300 людям',
+      'Обучила более 3000 учеников школы «Ресурс»',
+      'Выпустила более 200 практикующих нутрициологов',
+    ],
+    phBullet: null,
+    caption: null,
+  },
+  {
+    photo: asel,
+    alt: 'Асель Туманова',
+    role: 'Приглашённый эксперт · врач',
+    name: 'Асель Туманова',
+    bullets: [
+      'Онколог, химиотерапевт, интегративный врач',
+      'Кандидат медицинских наук, стаж 20 лет',
+      'Автор книги «Код перезагрузки здоровья»',
+      'Лектор, спикер международных конференций',
+    ],
+    phBullet: null,
+    caption: null,
+  },
+  {
+    photo: alena,
+    alt: 'Алёна Белянина',
+    role: 'Кураторы · практикующие нутрициологи',
+    name: 'Команда кураторов',
+    bullets: [
+      'Действующие нутрициологи с клиентами и результатами',
+      'Ведут разборы и практику в мини-группах',
+      'Поддержка в чате на всём протяжении обучения',
+    ],
+    phBullet: '[ добавить имена/регалии кураторов и приглашённых врачей ]',
+    caption: { name: 'Алёна Белянина', role: '[ куратор — уточнить регалии ]' },
+  },
+];
+---
+
+<Section id="experts" bg="tint">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Эксперты и спикеры</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Вас учат практики с реальным опытом</h2>
+  </div>
+
+  <div class="stagger-grid grid gap-7 md:grid-cols-3">
+    {
+      experts.map((e) => (
+        <article class="card-hover rounded-card border border-line bg-surface p-7 shadow-card">
+          <div class="speaker-avatar mb-6 aspect-[4/5] overflow-hidden rounded-card">
+            <Image
+              src={e.photo}
+              alt={e.alt}
+              widths={[340, 680]}
+              sizes="(max-width:768px) 90vw, 340px"
+              format="webp"
+              quality={78}
+              class="h-full w-full object-cover object-top"
+            />
+          </div>
+
+          <div class="font-body text-eyebrow font-semibold uppercase tracking-eyebrow text-accent-strong">{e.role}</div>
+          <h3 class="mt-2.5 text-h3 font-semibold text-ink">{e.name}</h3>
+
+          {/* Подпись к фото. Идёт ПОСЛЕ заголовка карточки: иначе имя на фото
+              читается как название карточки и ломает ритм остальных двух. */}
+          {e.caption && (
+            <p class="mt-3 text-[13px] text-muted">
+              На фото: <span class="font-semibold text-ink">{e.caption.name}</span>,{' '}
+              <span class="ph">{e.caption.role}</span>
+            </p>
+          )}
+
+          <ul class="mt-5 space-y-3">
+            {e.bullets.map((b) => (
+              <li class="flex gap-3">
+                <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-small text-muted">{b}</span>
+              </li>
+            ))}
+            {e.phBullet && (
+              <li class="flex gap-3">
+                <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
+                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-small text-muted">
+                  <span class="ph">{e.phBullet}</span>
+                </span>
+              </li>
+            )}
+          </ul>
+        </article>
+      ))
+    }
+  </div>
+</Section>

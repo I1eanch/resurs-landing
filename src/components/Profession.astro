@@ -1,0 +1,81 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+const values = [
+  {
+    title: 'Доход без ограничений',
+    text: 'Начинающий зарабатывает удалённо в среднем от 800 $ в месяц — даже без полной загрузки. С опытом растёт средний чек: у практиков это 2 500–5 000 $ и выше.',
+    icon: 'money',
+  },
+  {
+    title: 'Здоровье своё и близких',
+    text: 'Вы наконец понимаете свой организм и помогаете семье жить без лишних таблеток.',
+    icon: 'heart',
+  },
+  {
+    title: 'Свобода и путешествия',
+    text: 'Работа из любой точки мира, без привязки к кабинету и графику.',
+    icon: 'globe',
+  },
+  {
+    title: 'Смысл и польза',
+    text: 'Вы меняете качество жизни людей — и видите реальные результаты своей работы.',
+    icon: 'user',
+  },
+];
+---
+
+<Section id="profession" bg="paper">
+  <div class="rv mb-12 max-w-[860px]">
+    <SectionLabel>Что даёт профессия</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">
+      Профессию можно освоить с нуля — без медицинского образования
+    </h2>
+    <p class="mt-4 text-lead text-muted">
+      Нутрициологу не нужен диплом врача. Но часть дисциплин, которые изучают медики — например, фармакологию, — мы всё
+      равно проходим: чтобы вы в них ориентировались и умели грамотно сотрудничать с врачами. Это профессия, которую
+      можно вести онлайн из любой точки мира, совмещать с текущей жизнью и расти в доходе без ограничений.
+    </p>
+  </div>
+
+  <div class="stagger-grid grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    {
+      values.map((v) => (
+        <article class="card-hover rounded-card border border-line bg-surface p-7 shadow-card">
+          <span class="mb-5 grid h-12 w-12 place-items-center rounded-card bg-accent-wash text-accent-strong">
+            {v.icon === 'money' && (
+              <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                <path d="M12 2v20M6 6h9a3 3 0 010 6H8a3 3 0 000 6h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            )}
+            {v.icon === 'heart' && (
+              <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                <path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.6" />
+                <path d="M9 11l2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            )}
+            {v.icon === 'globe' && (
+              <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+                <path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" stroke="currentColor" stroke-width="1.4" />
+              </svg>
+            )}
+            {v.icon === 'user' && (
+              <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                <path d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM3 21c0-4 4-6 9-6s9 2 9 6" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            )}
+          </span>
+          <h3 class="text-h4 font-semibold text-ink">{v.title}</h3>
+          <p class="mt-2.5 text-small text-muted">{v.text}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="rv mt-8 max-w-[860px] text-small text-muted">
+    Цифры отражают средний доход практикующих выпускников и зависят от загрузки, опыта и региона. Это ориентир, а не
+    гарантия.
+  </p>
+</Section>

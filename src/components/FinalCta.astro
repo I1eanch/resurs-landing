@@ -1,0 +1,60 @@
+---
+import { Image } from 'astro:assets';
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import Button from './ui/Button.astro';
+import finalBg from '../assets/img/final-cta-bg.jpg';
+---
+
+<Section id="lead" bg="final">
+  <Image
+    slot="backdrop"
+    src={finalBg}
+    alt=""
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    format="webp"
+    quality={70}
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30"
+  />
+
+  <div class="mx-auto max-w-[820px] text-center">
+    <SectionLabel dark class="justify-center">Набор в 6 поток открыт</SectionLabel>
+
+    <h2 class="text-h2 text-on-deep">
+      Станьте нутрициологом,
+      <em class="animated-underline-wrap font-display italic text-accent-soft">
+        который видит причину
+        <svg
+          class="animated-underline-svg"
+          viewBox="0 0 300 20"
+          fill="none"
+          aria-hidden="true"
+          preserveAspectRatio="none"
+        >
+          <path
+            class="animated-underline-path"
+            d="M 0,10 Q 40,2 80,10 Q 120,18 160,10 Q 200,2 240,10 Q 280,18 300,10"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            fill="none"></path>
+        </svg>
+      </em>
+    </h2>
+
+    <p class="mx-auto mt-7 max-w-[64ch] text-lead text-on-deep-muted">
+      Освойте профессию с системной базой, реальной практикой и поддержкой на каждом шаге — и выйдите на первых клиентов
+      уже во время обучения.
+    </p>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-3.5">
+      <Button href="#price" size="lg" class="cta-pulse">Записаться в поток</Button>
+      <Button href="#" variant="ghost" size="lg"><span class="ph">[ссылка на бота/менеджера]</span></Button>
+    </div>
+
+    <p class="mt-8 text-small text-on-deep-muted">
+      Старт 10 сентября 2026 · мест ограниченное количество · рассрочка
+    </p>
+  </div>
+</Section>

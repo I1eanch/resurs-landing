@@ -1,0 +1,105 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import { clientTestimonials, graduateTestimonials, type Testimonial } from '../data/testimonials';
+
+/* Значения — не целые числа, счётчик data-count здесь неприменим. */
+const results = [
+  { value: '−7 кг', label: 'и −15 см в объёмах за 2 месяца, ушли отёки и боли в спине' },
+  { value: '19,6 → 6,6', label: 'инсулин за 2 месяца, −7 кг, ушла изжога' },
+  { value: '×2 ↓', label: 'снижена доза гормонов щитовидной железы после восстановления' },
+  { value: 'ферритин 1', label: 'анемия скорректирована — и клиент сам стал нутрициологом' },
+];
+
+const panels: { key: string; label: string; items: Testimonial[] }[] = [
+  { key: 'clients', label: 'Результаты клиентов', items: clientTestimonials },
+  { key: 'grads', label: 'Выпускники-нутрициологи', items: graduateTestimonials },
+];
+---
+
+<Section id="cases" bg="tint">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Истории и результаты</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">
+      Что нутрициология меняет в жизни — и что она даёт как профессия
+    </h2>
+  </div>
+
+  <div
+    role="tablist"
+    aria-label="Истории и результаты"
+    class="rv mb-10 inline-flex gap-2 rounded-pill border border-line bg-surface p-1.5"
+  >
+    {
+      panels.map((p, i) => (
+        <button
+          type="button"
+          role="tab"
+          class:list={[
+            'case-tab rounded-pill px-6 py-2.5 text-small font-semibold text-muted',
+            '[&.active]:bg-deep [&.active]:text-on-deep',
+            i === 0 && 'active',
+          ]}
+          data-case={p.key}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          {p.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    panels.map((p, i) => (
+      <div class:list={['case-panel', i === 0 && 'active']} data-case={p.key}>
+        {p.key === 'clients' && (
+          <div class="stagger-grid mb-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            {results.map((r) => (
+              <div class="rounded-card bg-deep p-7 text-on-deep">
+                <b class="block font-display text-[34px] font-semibold leading-tight text-accent-soft">{r.value}</b>
+                <span class="mt-2.5 block text-small text-on-deep-muted">{r.label}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Masonry на CSS columns. .stagger-grid сюда не вешаем: GSAP анимирует
+            прямых детей через transform, а в колоночной раскладке это рвёт поток. */}
+        <div class="rv columns-1 gap-5 md:columns-2 lg:columns-3">
+          {p.items.map((t) => (
+            <figure class="card-hover mb-5 break-inside-avoid rounded-card border border-line bg-surface p-7 shadow-card">
+              <div class="quote-mark mb-3 text-accent" aria-hidden="true">
+                ★★★★★
+              </div>
+              <blockquote class="text-small text-muted">«{t.quote}»</blockquote>
+              <figcaption class="mt-5 flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent-wash font-display text-[17px] font-semibold text-accent-strong">
+                  {t.name.charAt(0)}
+                </span>
+                <span>
+                  <span class="block text-small font-semibold text-ink">{t.name}</span>
+                  <span class="block text-[13px] text-muted">{t.role}</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        {p.key === 'clients' ? (
+          <p class="mt-10 text-small text-muted">
+            Реальные результаты участников программ «Ресурса».{' '}
+            <span class="ph">[ при желании добавим фото «до/после» и скриншоты благодарностей ]</span>
+          </p>
+        ) : (
+          <p class="mt-10 text-small text-muted">
+            <span class="ph">
+              [ Отзывы взяты с текущего сайта и слегка сокращены. Подтверди использование и пришли фото авторов — заменю
+              инициалы на аватары. ]
+            </span>
+          </p>
+        )}
+      </div>
+    ))
+  }
+</Section>

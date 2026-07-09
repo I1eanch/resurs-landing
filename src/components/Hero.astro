@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import Button from './ui/Button.astro';
+import heroBg from '../assets/img/hero-bg.jpg';
+
+const facts = [
+  { value: '2 ступени', label: 'базовая профессия + уровень PRO' },
+  { value: '8 месяцев', label: 'две ступени по 4 месяца' },
+  {
+    value: '2 документа',
+    label: 'диплом о профессиональной переподготовке + удостоверение о повышении квалификации',
+  },
+  { value: 'Практика', label: 'ведение реальных клиентов + разборы от практикующих нутрициологов' },
+];
+---
+
+<section id="top" class="hero-section relative overflow-hidden pt-[130px] pb-[clamp(56px,7vw,96px)]">
+  {/* Слой 1: акварельная текстура. Первый экран — грузим сразу, это LCP. */}
+  <Image
+    src={heroBg}
+    alt=""
+    loading="eager"
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    format="webp"
+    quality={70}
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-25"
+  />
+  {/* Слой 2: полупрозрачное полотно — текстура читается, но не мешает тексту */}
+  <div class="pointer-events-none absolute inset-0 bg-paper/65"></div>
+  {/* Слой 3: градиент растворяет нижние 40% в фон страницы */}
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-b from-transparent to-paper"></div>
+
+  {/* Декоративная сетка и окружности из макета */}
+  <svg
+    class="pointer-events-none absolute inset-0 h-full w-full"
+    preserveAspectRatio="none"
+    viewBox="0 0 1200 700"
+    aria-hidden="true"
+  >
+    <defs>
+      <pattern id="heroGrid" width="46" height="46" patternUnits="userSpaceOnUse">
+        <path d="M46 0H0V46" fill="none" stroke="rgba(18,181,171,.09)" stroke-width="1" />
+      </pattern>
+    </defs>
+    <rect width="1200" height="700" fill="url(#heroGrid)" />
+    <circle cx="1010" cy="140" r="220" fill="none" stroke="rgba(18,181,171,.16)" stroke-width="1" />
+    <circle cx="1010" cy="140" r="140" fill="none" stroke="rgba(18,181,171,.12)" stroke-width="1" />
+  </svg>
+
+  {/* Дышащее свечение — параллакс по scrub, цикл на CSS */}
+  <div
+    class="hero-glow pointer-events-none absolute -top-24 -right-32 h-[520px] w-[520px] rounded-full"
+    style="background: radial-gradient(circle, rgba(18,181,171,0.55) 0%, transparent 70%);"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-[1140px] px-6">
+    <span
+      class="inline-flex items-center gap-2.5 rounded-pill border border-accent/25 bg-surface/70 px-4 py-2 font-body text-[13px] font-medium text-accent-strong"
+    >
+      <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>
+      Школа нутрициологов «Ресурс» · Набор в 6 поток · Старт 10 сентября 2026
+    </span>
+
+    <h1 class="mt-7">
+      <span class="block max-w-[12ch] text-display-1 font-semibold text-ink">Профессия нутрициолог</span>
+      <span class="mt-3 block max-w-[26ch] font-display text-display-2 font-normal italic leading-heading text-accent-strong">
+        Учитесь видеть организм как
+        <span class="animated-underline-wrap">
+          единое целое
+          <svg class="animated-underline-svg" viewBox="0 0 300 20" fill="none" aria-hidden="true" preserveAspectRatio="none">
+            <path
+              class="animated-underline-path"
+              d="M 0,10 Q 40,2 80,10 Q 120,18 160,10 Q 200,2 240,10 Q 280,18 300,10"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              fill="none"
+            />
+          </svg>
+        </span>
+      </span>
+    </h1>
+
+    <p class="mt-7 max-w-[62ch] text-lead text-muted">
+      Две ступени системного обучения — <b class="font-semibold text-ink">без медицинского образования</b>. Вы
+      разберётесь, как на самом деле работает тело, научитесь находить причину, а не гасить симптомы, вести клиентов и
+      брать первых уже во время учёбы — и выйдете с документами и реальной практикой.
+    </p>
+
+    {/* На узком экране кнопки разной ширины встают рваной лесенкой — тянем на всю ширину. */}
+    <div class="mt-9 flex flex-wrap gap-3.5 max-sm:flex-col">
+      <Button href="#price" size="lg" class="cta-pulse max-sm:w-full">Записаться в 6 поток</Button>
+      <Button href="#program" variant="line" size="lg" class="max-sm:w-full">Смотреть программу</Button>
+    </div>
+
+    <div class="hero-checks mt-14 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        facts.map((f) => (
+          <div class="border-t border-line-strong pt-4">
+            <b class="block font-display text-[22px] font-semibold text-deep">{f.value}</b>
+            <span class="mt-1.5 block text-small text-muted">{f.label}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

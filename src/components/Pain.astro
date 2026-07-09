@@ -1,0 +1,106 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+/** Значения намеренно нечисловые (≈, ⅓) — счётчик data-count здесь неприменим. */
+const painStats = [
+  { value: '≈ 8 часов', label: 'в день мы отдаём работе' },
+  { value: '≈ 90 000', label: 'часов за жизнь — по разным оценкам' },
+  { value: '⅓ жизни', label: 'уходит на работу, которая часто не радует' },
+];
+
+const dreamPoints = [
+  {
+    title: 'Дело, которое приносит смысл',
+    text: 'Вы видите реальные результаты и меняете жизни людей к лучшему.',
+    icon: 'heart',
+  },
+  {
+    title: 'Время на близких',
+    text: 'Свобода распоряжаться своим днём и быть рядом с семьёй.',
+    icon: 'people',
+  },
+  {
+    title: 'Всегда в ресурсе',
+    text: 'Здоровье — не «когда-нибудь потом», а часть вашей профессии.',
+    icon: 'bolt',
+  },
+];
+---
+
+<Section id="pain" bg="paper">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Задумайтесь на минуту</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">
+      Большую часть жизни мы проводим на работе. Часто — на нелюбимой
+    </h2>
+    <p class="mt-4 text-lead text-muted">
+      8 часов в день, 5 дней в неделю, десятки лет подряд. И жизнь незаметно превращается не в жизнь, а в <b
+        class="font-semibold text-ink">выживание — от зарплаты до зарплаты</b
+      >. Работа забирает самое ценное: время. На себя и близких почти ничего не остаётся.
+    </p>
+  </div>
+
+  <div class="stagger-grid grid gap-6 md:grid-cols-3">
+    {
+      painStats.map((s) => (
+        <div class="rounded-card border border-line bg-surface p-7 shadow-card">
+          <b class="block font-display text-[28px] font-semibold leading-none text-deep">{s.value}</b>
+          <span class="mt-2.5 block text-small text-muted">{s.label}</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="scale-in mt-14 rounded-panel bg-accent-wash p-9">
+    <SectionLabel>А теперь представьте</SectionLabel>
+    <h3 class="text-h3 font-semibold text-ink">Профессия, которой вы действительно живёте</h3>
+    <p class="mt-4 max-w-[900px] text-lead text-muted">
+      Она встраивается в вашу жизнь, а не вытесняет её. Вы <b class="font-semibold text-ink"
+        >занимаетесь здоровьем — своим и своих близких</b
+      > — и помогаете другим людям становиться здоровее. При этом у вас есть время на семью и на себя, а забота о собственном
+      здоровье становится частью работы. Нутрициология — как раз такая профессия.
+    </p>
+
+    <div class="stagger-grid mt-9 grid gap-7 md:grid-cols-3">
+      {
+        dreamPoints.map((p) => (
+          <div class="flex gap-4">
+            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-card bg-surface text-accent-strong shadow-card">
+              {p.icon === 'heart' && (
+                <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                  <path d="M12 21s-7-4.5-7-10a7 7 0 0114 0c0 5.5-7 10-7 10z" stroke="currentColor" stroke-width="1.6" />
+                  <path
+                    d="M9 11l2 2 4-4"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              )}
+              {p.icon === 'people' && (
+                <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                  <path
+                    d="M9 11a3 3 0 100-6 3 3 0 000 6zM15.5 13a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM2 20c0-3 3-5 7-5M13 20c0-2.4 2-4 4.5-4s4.5 1.6 4.5 4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              )}
+              {p.icon === 'bolt' && (
+                <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6" aria-hidden="true">
+                  <path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+                </svg>
+              )}
+            </span>
+            <div>
+              <b class="block font-display text-[17px] font-semibold text-ink">{p.title}</b>
+              <span class="mt-1.5 block text-small text-muted">{p.text}</span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>

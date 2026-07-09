@@ -1,0 +1,85 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import Badge from './ui/Badge.astro';
+import Button from './ui/Button.astro';
+import { pricing } from '../data/pricing';
+---
+
+<Section id="price" bg="paper">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Тарифы 6 потока</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Выберите формат участия</h2>
+    <p class="mt-5 text-lead text-muted">
+      Старт 10 сентября 2026. Мы делаем упор не на количество, а на качество: никаких огромных потоков и обучения без
+      обратной связи — поэтому число мест ограничено. Начать можно с первой ступени, а можно сразу взять обе — так
+      выгоднее. Доступна рассрочка.
+    </p>
+  </div>
+
+  <div class="stagger-grid grid items-start gap-7 lg:grid-cols-2">
+    {
+      pricing.map((tier) => (
+        /* Бейдж живёт в обёртке, а не в .pricing-card: у карточки overflow:hidden
+           ради блика, и капсула на -top-3 внутри неё была бы срезана. */
+        <div class="relative">
+          {tier.badge && (
+            <Badge variant="accent" class="absolute -top-3 left-9 z-10">
+              {tier.badge}
+            </Badge>
+          )}
+
+          <article
+            class:list={[
+              'rounded-panel bg-surface p-9',
+              tier.featured
+                ? 'pricing-card scale-in border-2 border-accent shadow-pop'
+                : 'border border-line shadow-card',
+            ]}
+          >
+            <span class="font-body text-eyebrow font-semibold uppercase tracking-eyebrow text-accent-strong">
+              {tier.plan}
+            </span>
+            <h3 class="mt-3 font-display text-h3 font-medium text-ink">{tier.title}</h3>
+            <p class="mt-1.5 text-small text-muted">{tier.desc}</p>
+
+            <div class="mt-6 flex flex-wrap items-baseline gap-3">
+              <s class="text-lead text-muted">{tier.oldPrice}</s>
+              <Badge variant="discount">{tier.discount}</Badge>
+            </div>
+            <div class="mt-1 font-display text-[42px] font-semibold text-deep">{tier.amount}</div>
+            <div class="mt-1 text-small text-muted">
+              {tier.per}
+              {tier.saving && (
+                <>
+                  <br />
+                  {tier.saving}
+                </>
+              )}
+            </div>
+
+            <ul class:list={['mt-7 space-y-3', tier.featured && 'pricing-features']}>
+              {tier.features.map((f) => (
+                <li class="flex gap-3 text-small text-muted">
+                  <svg viewBox="0 0 24 24" fill="none" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
+                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" />
+                  </svg>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <Button href="#lead" variant={tier.featured ? 'primary' : 'line'} size="lg" fullWidth class="mt-8">
+              {tier.cta}
+            </Button>
+          </article>
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="rv mx-auto mt-8 max-w-[70ch] text-center text-small text-muted">
+    Вторая ступень проходит после первой и доступна только в составе тарифа «1 + 2». Отдельно на неё записаться нельзя.
+    Рассрочка — на 12 месяцев без переплаты. <span class="ph">[ указать банк/сервис рассрочки ]</span>
+  </p>
+</Section>

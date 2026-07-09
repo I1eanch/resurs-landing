@@ -1,0 +1,30 @@
+---
+import Section from './ui/Section.astro';
+---
+
+<Section bg="paper">
+  <div
+    class="scale-in mx-auto max-w-[760px] rounded-panel border border-line bg-surface p-10 text-center shadow-card"
+  >
+    <div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-accent-wash text-accent-strong">
+      <svg viewBox="0 0 24 24" fill="none" class="h-8 w-8" aria-hidden="true">
+        <path d="M12 2l7 3v6c0 5-3 8.5-7 9-4-.5-7-4-7-9V5l7-3z" stroke="currentColor" stroke-width="1.5"></path>
+        <path
+          d="M8.5 12l2.5 2.5L16 9"
+          stroke="currentColor"
+          stroke-width="1.6"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+
+    <h3 class="mt-7 text-h3 text-ink">Мы уверены в программе</h3>
+
+    <p class="mt-5 text-lead text-muted">
+      <span class="ph">
+        [ Опишите гарантию под вашу оферту: например — если в первые X дней поймёте, что формат не подходит, вернём
+        оплату. Или гарантия сопровождения до результата. ]
+      </span>
+    </p>
+  </div>
+</Section>

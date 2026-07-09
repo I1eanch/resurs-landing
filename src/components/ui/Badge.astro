@@ -1,0 +1,26 @@
+---
+/** Капсула с заглавными буквами. */
+interface Props {
+  variant?: 'accent' | 'discount' | 'tier' | 'dark';
+  class?: string;
+}
+
+const { variant = 'accent', class: className = '' } = Astro.props;
+
+const variants: Record<string, string> = {
+  accent: 'bg-accent text-on-accent',
+  discount: 'bg-accent text-on-accent',
+  tier: 'bg-accent-wash text-accent-strong',
+  dark: 'bg-deep text-on-deep',
+};
+---
+
+<span
+  class:list={[
+    'inline-block rounded-pill px-3.5 py-1 font-body text-[10px] font-bold uppercase tracking-[1px] whitespace-nowrap',
+    variants[variant],
+    className,
+  ]}
+>
+  <slot />
+</span>

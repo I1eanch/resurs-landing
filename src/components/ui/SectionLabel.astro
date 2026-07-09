@@ -1,0 +1,20 @@
+---
+/** Надзаголовок-метка. Единый способ отметить начало секции. */
+interface Props {
+  dark?: boolean;
+  class?: string;
+}
+
+const { dark = false, class: className = '' } = Astro.props;
+---
+
+<p
+  class:list={[
+    'mb-[22px] inline-flex items-center gap-2.5 font-body text-eyebrow font-semibold uppercase tracking-eyebrow',
+    dark ? 'text-accent-soft' : 'text-accent-strong',
+    className,
+  ]}
+>
+  <span class:list={['h-px w-[26px]', dark ? 'bg-accent-soft' : 'bg-accent']} aria-hidden="true"></span>
+  <slot />
+</p>

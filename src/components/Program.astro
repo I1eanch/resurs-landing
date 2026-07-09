@@ -1,0 +1,152 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import Badge from './ui/Badge.astro';
+import { stages } from '../data/program';
+
+/**
+ * Две ступени переключаются табами (initTabs в src/scripts/ui.ts ищет
+ * .step-tab[data-step] и .step-panel[data-step]), модули раскрываются
+ * аккордеоном (.mod-head → .mod.open, высоту ведёт grid-template-rows).
+ *
+ * Ось «позвоночника» (.timeline-line) и узлы (.day-marker) анимирует GSAP
+ * из Layout.astro. Геометрия: контейнер pl-14 (44px на мобильном), узел
+ * 40px сдвинут в паддинг, его центр — 20px, туда же встаёт ось left-[19px].
+ */
+---
+
+<Section id="program" bg="paper">
+  <div class="rv mb-12 max-w-[820px]">
+    <SectionLabel>Программа</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">
+      Две ступени — от новичка до практикующего нутрициолога PRO
+    </h2>
+    <p class="mt-4 text-lead text-muted">
+      Каждый модуль — «позвонок» единой системы. Сначала выстраиваем прочный фундамент, затем собираем организм в
+      систему и переходим к сложным случаям, продвижению и самостоятельной практике.
+    </p>
+  </div>
+
+  <div role="tablist" aria-label="Ступени обучения" class="rv mb-10 grid gap-3 sm:grid-cols-2">
+    {
+      stages.map((s, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`step-tab-${s.key}`}
+          data-step={s.key}
+          aria-selected={i === 0}
+          aria-controls={`step-panel-${s.key}`}
+          tabindex={i === 0 ? 0 : -1}
+          class:list={[
+            'step-tab rounded-card border border-line bg-surface p-5 text-left text-ink shadow-card',
+            'transition-colors duration-200 ease-standard hover:border-line-strong',
+            '[&.active]:border-deep [&.active]:bg-deep [&.active]:text-on-deep',
+            i === 0 && 'active',
+          ]}
+        >
+          <span class="block text-h4 font-semibold">{s.tabTitle}</span>
+          <span class="mt-1 block text-small text-muted [.step-tab.active_&]:text-on-deep-muted">{s.tabSubtitle}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    stages.map((s, i) => (
+      <div
+        class:list={['step-panel', i === 0 && 'active']}
+        data-step={s.key}
+        id={`step-panel-${s.key}`}
+        role="tabpanel"
+        aria-labelledby={`step-tab-${s.key}`}
+      >
+        <div class="mb-10 max-w-[820px]">
+          <Badge>{s.tabTitle}</Badge>
+          <h3 class="mt-4 text-h3 font-semibold text-ink">{s.panelTitle}</h3>
+
+          <div class="mt-4 flex flex-wrap gap-2">
+            {s.meta.map((m) => (
+              <Badge variant="tier">{m}</Badge>
+            ))}
+          </div>
+
+          <p class="mt-5 text-body text-muted" set:html={s.description} />
+        </div>
+
+        <div class="relative pl-14 max-sm:pl-11">
+          <div
+            class="timeline-line absolute top-2 bottom-2 left-[19px] w-0.5 bg-gradient-to-b from-accent to-accent-soft"
+            aria-hidden="true"
+          />
+
+          {s.modules.map((m) => (
+            <div class="mod relative mb-3">
+              <span class="day-marker absolute top-3 -left-14 grid h-10 w-10 place-items-center rounded-full bg-accent font-display text-[15px] font-semibold text-on-accent max-sm:-left-11">
+                {m.num}
+              </span>
+
+              <button
+                type="button"
+                class="mod-head flex w-full items-center justify-between gap-4 rounded-card border border-line bg-surface p-5 text-left shadow-card transition-colors duration-200 ease-standard hover:border-line-strong"
+                aria-expanded="false"
+                aria-controls={`mod-body-${s.key}-${m.num}`}
+              >
+                <span>
+                  <span class="block text-h4 font-semibold text-ink">{m.title}</span>
+                  {m.subtitle && <span class="mt-1 block text-small text-muted">{m.subtitle}</span>}
+                </span>
+                <span
+                  class="plus grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent-wash text-accent-strong"
+                  aria-hidden="true"
+                >
+                  <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </button>
+
+              <div class="mod-body" id={`mod-body-${s.key}-${m.num}`}>
+                <div>
+                  <div class="px-5 pt-4 pb-1">
+                    {m.lessons && (
+                      <ul>
+                        {m.lessons.map((lesson) => (
+                          <li class="flex gap-2.5 py-1 text-small text-muted">
+                            <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                            <span>{lesson}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {m.blocks?.map((b, bi) => (
+                      <div class="blk">
+                        <p
+                          class:list={[
+                            'mb-2 text-eyebrow font-semibold tracking-eyebrow uppercase text-accent-strong',
+                            bi === 0 ? 'mt-0' : 'mt-4',
+                          ]}
+                        >
+                          {b.title}
+                        </p>
+                        <ul>
+                          {b.lessons.map((lesson) => (
+                            <li class="flex gap-2.5 py-1 text-small text-muted">
+                              <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                              <span>{lesson}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</Section>

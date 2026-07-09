@@ -1,0 +1,64 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+const items = [
+  {
+    title: 'Встречи с Мариной — 1 раз в месяц',
+    text: 'Живые эфиры с экспертом и руководителем школы: разборы, ответы, углубление тем.',
+    icon: `<circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M5 20c0-3.3 3-5 7-5s7 1.7 7 5" stroke="currentColor" stroke-width="1.6"/>`,
+  },
+  {
+    title: 'Кураторы — 2 раза в месяц',
+    text: 'Практикующие нутрициологи отвечают на вопросы и ведут через сложные темы.',
+    icon: `<path d="M8 12a3 3 0 100-6 3 3 0 000 6zM16 12a3 3 0 100-6 3 3 0 000 6zM2 20c0-2.8 2.7-4 6-4M22 20c0-2.8-2.7-4-6-4" stroke="currentColor" stroke-width="1.5"/>`,
+  },
+  {
+    title: 'Записи реальных консультаций',
+    text: 'Настоящие разборы клиентов с практическими заданиями к каждой записи.',
+    icon: `<path d="M4 5h16v11H4z" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l4 2.5L10 14V9z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>`,
+  },
+  {
+    title: 'Эфиры с приглашёнными спикерами',
+    text: 'Врачи, реабилитологи, гинеколог, инфекционист, онколог — взгляд смежных экспертов.',
+    icon: `<path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 21l-4.9 2.6.9-5.5-4-3.9 5.5-.8L12 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>`,
+  },
+  {
+    title: 'Практика в мини-группах',
+    text: 'По ролям «клиент — консультант — наблюдатель» в сессионных залах Zoom.',
+    icon: `<path d="M7 8h10M7 12h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 4h16v12H8l-4 4V4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>`,
+  },
+  {
+    title: 'Сообщество и конкурсы',
+    text: 'Чат с коллегами, совместные челленджи, личный и командный зачёт за лучший результат.',
+    icon: `<path d="M8 21h8M12 17v4M6 4h12v5a6 6 0 01-12 0V4zM6 6H3v2a3 3 0 003 3M18 6h3v2a3 3 0 01-3 3" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>`,
+  },
+];
+---
+
+<Section id="format" bg="tint">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Как проходит обучение</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Живое сопровождение, а не просто доступ к урокам</h2>
+    <p class="mt-4 text-lead text-muted">
+      Вы учитесь в своём темпе по записям, но всегда с поддержкой: эксперт, кураторы, практика и разбор реальных
+      клиентов.
+    </p>
+  </div>
+
+  <div class="stagger-grid grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      items.map((i) => (
+        <article class="card-hover rounded-card border border-line bg-surface p-7 shadow-card">
+          <span class="mb-5 grid h-12 w-12 place-items-center rounded-card bg-accent-wash text-accent-strong">
+            <svg viewBox="0 0 24 24" fill="none" class="h-6 w-6">
+              <Fragment set:html={i.icon} />
+            </svg>
+          </span>
+          <h3 class="text-h4 font-semibold text-ink">{i.title}</h3>
+          <p class="mt-2.5 text-small text-muted">{i.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</Section>

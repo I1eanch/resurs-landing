@@ -1,0 +1,208 @@
+/* =====================================================================
+   ШКОЛА НУТРИЦИОЛОГОВ «РЕСУРС» — DESIGN TOKENS
+   Light / Tiffany. Источник правды для цвета, типографики, сетки и т.д.
+   Три уровня: 1) Primitives  2) Semantic  3) Component
+   Внизу — Legacy-алиасы под текущую вёрстку лендинга.
+   ===================================================================== */
+
+:root{
+
+  /* ---------------------------------------------------------------
+     1. PRIMITIVES — сырая палитра и базовые значения. Не используются
+        в компонентах напрямую; на них ссылаются семантические токены.
+     --------------------------------------------------------------- */
+
+  /* Teal / петроль (тёмные секции, текст) */
+  --p-teal-900:#082B29;
+  --p-teal-800:#0C3B38;
+  --p-teal-700:#124E4A;
+  --p-teal-ink:#183633;   /* основной текст: тёмный сине-зелёный */
+
+  /* Tiffany / бирюза (акцент бренда) */
+  --p-tiffany-700:#0A968D;
+  --p-tiffany-500:#12B5AB;
+  --p-tiffany-200:#A6E6DF;
+  --p-tiffany-050:#E7F6F4;
+
+  /* Нейтральные / светлые */
+  --p-paper:#F7FBFA;      /* фон страницы */
+  --p-white:#FFFFFF;      /* карточки */
+  --p-mist:#EDF7F5;       /* мягкая заливка секций */
+  --p-on-deep:#EAF6F4;    /* текст на тёмном */
+  --p-gray:#94A9A6;       /* нейтральный серо-зелёный (негатив в сравнениях) */
+  --p-deep-contrast:#06322F; /* текст на бирюзовой кнопке */
+
+  /* Прозрачности (базируются на ink 24,54,51 и on-deep 234,246,244) */
+  --p-ink-rgb:24,54,51;
+  --p-on-deep-rgb:234,246,244;
+  --p-shadow-rgb:12,59,56;
+
+
+  /* ---------------------------------------------------------------
+     2. SEMANTIC — роли. Именно ими описываются компоненты.
+     --------------------------------------------------------------- */
+
+  /* Текст */
+  --color-text:            var(--p-teal-ink);
+  --color-text-muted:      rgba(var(--p-ink-rgb), .68);
+  --color-text-on-accent:  var(--p-deep-contrast);
+  --color-text-on-deep:    var(--p-on-deep);
+  --color-text-on-deep-muted: rgba(var(--p-on-deep-rgb), .72);
+
+  /* Поверхности */
+  --color-bg:              var(--p-paper);
+  --color-surface:         var(--p-white);
+  --color-surface-alt:     var(--p-mist);
+
+  /* Акцент (Tiffany) */
+  --color-accent:          var(--p-tiffany-500);
+  --color-accent-strong:   var(--p-tiffany-700);
+  --color-accent-soft:     var(--p-tiffany-200);
+  --color-accent-wash:     var(--p-tiffany-050);
+
+  /* Глубокие (тёмные) секции */
+  --color-deep:            var(--p-teal-800);
+  --color-deep-2:          var(--p-teal-700);
+  --color-deep-3:          var(--p-teal-900);
+  --color-deep-line:       rgba(var(--p-on-deep-rgb), .16);
+
+  /* Границы */
+  --color-border:          rgba(var(--p-ink-rgb), .12);
+  --color-border-strong:   rgba(var(--p-ink-rgb), .24);
+
+  /* Статусы */
+  --color-negative:        var(--p-gray); /* «минусы» в блоке сравнения */
+
+
+  /* ---------------------------------------------------------------
+     3. ТИПОГРАФИКА
+     --------------------------------------------------------------- */
+
+  --font-display:"Spectral", Georgia, serif;    /* заголовки */
+  --font-body:"Golos Text", system-ui, sans-serif; /* текст, UI */
+
+  --fw-light:300;
+  --fw-regular:400;
+  --fw-medium:500;
+  --fw-semibold:600;
+  --fw-bold:700;
+
+  /* Размерная шкала (адаптив через clamp) */
+  --fs-display-1:clamp(38px, 6.6vw, 72px); /* hero — «Профессия нутрициолог» */
+  --fs-display-2:clamp(23px, 3.6vw, 40px); /* hero-акцент (курсив, бирюза) */
+  --fs-h2:clamp(28px, 4.4vw, 46px);        /* заголовки секций */
+  --fs-h3:clamp(23px, 3.3vw, 33px);        /* подзаголовки, названия ступеней */
+  --fs-h4:20px;                            /* заголовки карточек */
+  --fs-lead:clamp(17px, 2vw, 20px);        /* лид-абзац секции */
+  --fs-body:17px;                          /* базовый текст */
+  --fs-small:14.5px;                       /* подписи, мелкий текст */
+  --fs-eyebrow:12.5px;                     /* надзаголовок-метка */
+
+  --lh-tight:1.08;   /* крупные заголовки */
+  --lh-snug:1.25;    /* средние заголовки */
+  --lh-normal:1.6;   /* текст */
+
+  --tracking-eyebrow:.18em; /* разрядка метки */
+  --tracking-tight:-.01em;  /* крупные заголовки */
+
+
+  /* ---------------------------------------------------------------
+     4. СЕТКА И ОТСТУПЫ
+     --------------------------------------------------------------- */
+
+  --container-max:1140px;
+  --container-gutter:24px;
+  --section-y:clamp(58px, 8vw, 112px); /* вертикальный ритм секций */
+
+  --space-2xs:4px;
+  --space-xs:8px;
+  --space-sm:12px;
+  --space-md:16px;
+  --space-lg:24px;
+  --space-xl:32px;
+  --space-2xl:48px;
+  --space-3xl:64px;
+
+
+  /* ---------------------------------------------------------------
+     5. СКРУГЛЕНИЯ, ГРАНИЦЫ, ТЕНИ
+     --------------------------------------------------------------- */
+
+  --radius-xs:2px;
+  --radius-sm:3px;   /* кнопки */
+  --radius-md:6px;   /* карточки, поля */
+  --radius-lg:8px;
+  --radius-xl:12px;
+  --radius-2xl:16px; /* крупные панели */
+  --radius-pill:40px;
+
+  --border-width:1px;
+  --border-width-strong:2px; /* featured-карточка тарифа */
+
+  --shadow-sm:0 1px 0 rgba(var(--p-ink-rgb), .04);
+  --shadow-card:0 1px 0 rgba(var(--p-ink-rgb), .04), 0 20px 42px -26px rgba(var(--p-shadow-rgb), .30);
+  --shadow-pop:0 30px 60px -30px rgba(var(--p-shadow-rgb), .40);
+  --shadow-btn:0 12px 26px -12px rgba(18,181,171,.85);
+
+
+  /* ---------------------------------------------------------------
+     6. ДВИЖЕНИЕ
+     --------------------------------------------------------------- */
+
+  --ease-standard:cubic-bezier(.2,.6,.2,1);
+  --dur-fast:180ms;   /* ховеры, кнопки */
+  --dur-mid:250ms;    /* табы */
+  --dur-slow:400ms;   /* раскрытие аккордеона */
+
+
+  /* ---------------------------------------------------------------
+     7. КОМПОНЕНТНЫЕ ТОКЕНЫ (примеры-алиасы)
+     --------------------------------------------------------------- */
+
+  --btn-primary-bg:var(--color-accent);
+  --btn-primary-bg-hover:var(--color-accent-strong);
+  --btn-primary-text:var(--color-text-on-accent);
+  --btn-radius:var(--radius-sm);
+
+  --card-bg:var(--color-surface);
+  --card-border:var(--color-border);
+  --card-radius:var(--radius-md);
+  --card-shadow:var(--shadow-card);
+
+  --accent-badge-bg:var(--color-accent);
+  --accent-badge-text:var(--color-text-on-accent);
+}
+
+/* Точки перелома (для справки — в media-queries используйте значения напрямую):
+   --bp-mobile: 560px;
+   --bp-tablet: 900px;
+   Контейнер разворачивается в одну колонку на <=900px. */
+
+
+/* =====================================================================
+   LEGACY-АЛИАСЫ
+   Имена переменных, которыми уже пользуется текущая вёрстка лендинга
+   (nutriolog-lending.html). Подключите этот файл первым — и лендинг
+   продолжит работать, а токены станут единым источником правды.
+   ===================================================================== */
+:root{
+  --ink:var(--color-text);
+  --muted:var(--color-text-muted);
+  --deep:var(--color-deep);
+  --deep-2:var(--color-deep-2);
+  --deep-3:var(--color-deep-3);
+  --tiff:var(--color-accent);
+  --tiff-deep:var(--color-accent-strong);
+  --tiff-soft:var(--color-accent-soft);
+  --tiff-wash:var(--color-accent-wash);
+  --paper:var(--color-bg);
+  --surface:var(--color-surface);
+  --surface-2:var(--color-surface-alt);
+  --on-deep:var(--color-text-on-deep);
+  --on-deep-soft:var(--color-text-on-deep-muted);
+  --deep-line:var(--color-deep-line);
+  --line:var(--color-border);
+  --line-strong:var(--color-border-strong);
+  --neg:var(--color-negative);
+  --shadow:var(--shadow-card);
+}

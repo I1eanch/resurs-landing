@@ -1,0 +1,66 @@
+---
+import { Image } from 'astro:assets';
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+import marina from '../assets/img/marina-zhigulskaya.jpg';
+import manifestoBg from '../assets/img/manifesto-bg.jpg';
+---
+
+<Section id="manifesto" bg="deep">
+  <Image
+    slot="backdrop"
+    src={manifestoBg}
+    alt=""
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    format="webp"
+    quality={70}
+    class="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-20"
+  />
+
+  <div class="grid gap-14 lg:grid-cols-[380px_1fr] lg:items-start">
+    <div class="slide-left">
+      <div class="speaker-avatar aspect-[4/5] overflow-hidden rounded-panel">
+        <Image
+          src={marina}
+          alt="Марина Жигульская"
+          widths={[380, 760]}
+          sizes="(max-width:1024px) 90vw, 380px"
+          format="webp"
+          quality={78}
+          class="h-full w-full object-cover object-top"
+        />
+      </div>
+      <div class="mt-6">
+        <b class="block font-display text-h4 font-semibold text-on-deep">Марина Жигульская</b>
+        <span class="mt-1.5 block text-small text-on-deep-muted">
+          эксперт и руководитель школы «Ресурс»
+        </span>
+      </div>
+    </div>
+
+    <div class="slide-right">
+      <SectionLabel dark>Слово основателя</SectionLabel>
+
+      <p class="font-display text-h3 leading-heading text-on-deep">
+        Нутрициология сегодня набирает обороты, и специалистов стало действительно много. Но я вижу большую проблему
+        отрасли: нутрициологию воспринимают как науку <em>только о питании</em> — будто она существует отдельно от
+        организма.
+      </p>
+      <p class="mt-7 font-display text-h3 leading-heading text-on-deep">
+        А на самом деле нутрициология — и шире, натуропатия — это в первую очередь про то, <em>как работает организм</em
+        >. Про то, чтобы включать критическое мышление и соединять анатомию, физиологию и науку о питании в единую
+        картину.
+      </p>
+      <p class="mt-7 font-display text-h3 leading-heading text-on-deep">
+        Сегодня много специалистов, которые работают с километровыми схемами, выдают всем одно меню и сажают людей на
+        протоколы. И очень мало тех, кто смотрит на организм как на единое целое, умеет думать и действовать системно.
+        Именно на таких нутрициологов сейчас огромный спрос. <em>Этому я и учу.</em>
+      </p>
+
+      <div class="mt-9 font-body text-small font-semibold uppercase tracking-eyebrow text-accent-soft">
+        — Марина Жигульская
+      </div>
+    </div>
+  </div>
+</Section>

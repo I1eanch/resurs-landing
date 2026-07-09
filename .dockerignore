@@ -1,0 +1,10 @@
+node_modules
+dist
+.astro
+.git
+.github
+reference
+Accets
+Plans
+*.log
+.DS_Store

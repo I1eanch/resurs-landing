@@ -1,0 +1,110 @@
+# Школа нутрициологов «Ресурс» — лендинг
+
+Одностраничный продающий лендинг набора в 6 поток. Старт — 10 сентября 2026.
+
+**Демо:** https://i1eanch.github.io/resurs-landing/
+
+---
+
+## Стек
+
+| Слой | Технология |
+|---|---|
+| Фреймворк | Astro 6 — zero-JS по умолчанию |
+| Стили | Tailwind CSS v4 через `@tailwindcss/vite`, токены в `@theme` |
+| Анимации | GSAP 3 + ScrollTrigger, один скрипт на весь сайт |
+| Изображения | `astro:assets` — автоматический WebP и `srcset` |
+| Раздача | nginx в multi-stage Docker; превью — GitHub Pages |
+
+Зависимостей ровно четыре. Ни React, ни Vue, ни клиентского роутера.
+
+---
+
+## Запуск
+
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # сборка в dist/
+npm run preview   # проверить собранное
+```
+
+Для сборки под GitHub Pages (с префиксом `/resurs-landing`):
+
+```bash
+DEPLOY_TARGET=pages npm run build
+```
+
+Docker:
+
+```bash
+docker build -t resurs-landing .
+docker run -p 8080:80 resurs-landing
+```
+
+---
+
+## Архитектура
+
+```
+src/
+  assets/img/      исходники — обрабатываются astro:assets
+  components/
+    ui/            примитивы: Section, Button, Badge, SectionLabel
+    *.astro        одна секция = один файл
+  data/            program, testimonials, faq, pricing
+  layouts/
+    Layout.astro   <head>, шрифты и ЕДИНСТВЕННЫЙ GSAP-скрипт
+  pages/
+    index.astro    только импорты и порядок секций
+  scripts/
+    ui.ts          бургер, табы, аккордеоны
+  styles/
+    global.css     @theme-токены и CSS-анимации
+reference/         исходный макет и дизайн-система — не собираются
+```
+
+Два правила, которые держат систему:
+
+1. **Ни один компонент секции не содержит `<script>`.** Чтобы оживить элемент, вы добавляете класс, а не пишете скрипт. Весь GSAP — в `Layout.astro`, всё поведение — в `scripts/ui.ts`.
+2. **Ни одного хекса вне `@theme`.** Смена темы делается в одном месте.
+
+### Анимации
+
+Аккордеоны раскрываются через `grid-template-rows: 0fr → 1fr`, а не через `max-height` — высоту анимирует браузер, JS только вешает класс. Пульс CTA анимирует `opacity` псевдоэлемента, а не `box-shadow`: тень — свойство слоя paint, и бесконечный цикл по ней перерисовывает кнопку каждый кадр.
+
+Бесконечные циклы (`.cta-pulse`, `.hero-glow`) останавливаются за пределами вьюпорта через `IntersectionObserver`.
+
+`prefers-reduced-motion` обработан дважды: в CSS (глушит длительности) и в JS (ранний выход, показывающий весь контент сразу).
+
+---
+
+## Что осталось заполнить
+
+Эти места помечены на странице стилем `.ph` — бирюзовая подсветка с пунктиром. Данных для них не было, и выдумывать их нельзя.
+
+| # | Что | Где |
+|---|---|---|
+| 1 | Текст гарантии | `components/Guarantee.astro` |
+| 2 | Ссылка на Telegram-бота / менеджера | `components/FinalCta.astro`, `components/Footer.astro` |
+| 3 | Ссылки на оферту, политику ПД, согласие | `components/Footer.astro`, `pages/oferta.astro`, `pages/politika.astro` |
+| 4 | Банк или сервис рассрочки | `components/Pricing.astro`, `data/faq.ts` |
+| 5 | Срок доступа к материалам | `data/faq.ts` |
+| 6 | Регалии кураторов, включая Алёну Белянину | `components/Experts.astro` |
+
+Юридический текст оферты и политики обработки персональных данных должен подготовить юрист. Страницы `/oferta` и `/politika` содержат только реквизиты и заглушку.
+
+### Реквизиты
+
+ИП Кобляков Артем Анатольевич · ИНН 246517375248 · ОГРНИП 324237500314271
+Краснодар · +7 (923) 321-69-21 · artem@ellachoco.ru
+
+---
+
+## Деплой
+
+Пуш в `main` запускает `.github/workflows/deploy.yml`: сборка с `DEPLOY_TARGET=pages` и публикация на GitHub Pages.
+
+Один раз нужно включить в настройках репозитория: **Settings → Pages → Source: GitHub Actions**.
+
+Продакшен собирается тем же кодом в Docker — там `base` остаётся `/`.

@@ -1,0 +1,18 @@
+---
+/**
+ * Мобильная плашка с главным CTA. В макете её нет — добавлена сверх него.
+ * Класс `.sticky-cta` обязателен: за него цепляется GSAP в Layout.astro.
+ * Скрыта на ширине от 901px — там CTA всегда виден в шапке и в секциях.
+ *
+ * Без backdrop-blur намеренно: панель выезжает через transform, и блюр
+ * заставлял бы браузер пересчитывать размытие фона каждый кадр.
+ * При bg-paper/95 разницы всё равно не видно.
+ */
+import Button from './ui/Button.astro';
+---
+
+<div
+  class="sticky-cta fixed inset-x-0 bottom-0 z-40 border-t border-line bg-paper/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 min-[901px]:hidden"
+>
+  <Button href="#price" fullWidth>Записаться в 6 поток</Button>
+</div>

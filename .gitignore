@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+*.log
+.env
+.env.production
+
+# Исходные фотографии в полном разрешении (37 МБ) — в репозиторий не идут.
+# В src/assets/img/ лежат уменьшенные до 2000px копии.
+Accets/
+
+# План сессии Claude Code
+Plans/
+
+# Артефакты Playwright MCP
+.playwright-mcp/

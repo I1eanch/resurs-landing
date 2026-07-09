@@ -1,0 +1,62 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+const outcomes = [
+  {
+    title: 'Проводить полноценную консультацию',
+    text: 'От первого контакта до сопровождения — по чёткому алгоритму.',
+  },
+  {
+    title: '«Сканировать» организм целиком',
+    text: 'Связывать жалобы, образ жизни и системы, находить причинно-следственные связи.',
+  },
+  {
+    title: 'Работать с частыми запросами',
+    text: 'Коррекция ЖКТ, подбор питания, снижение веса, профилактика распространённых состояний.',
+  },
+  {
+    title: 'Составлять протоколы',
+    text: 'Питание, образ жизни и схемы нутрицевтиков под конкретный запрос.',
+  },
+  {
+    title: 'Вести клиента до результата',
+    text: 'Сопровождать, корректировать стратегию и удерживать в работе.',
+  },
+  {
+    title: 'Находить клиентов и продвигаться',
+    text: 'Упаковывать экспертность, вести соцсети и Telegram, легально оформить деятельность.',
+  },
+];
+---
+
+<Section bg="tint">
+  <div class="rv mb-12 max-w-[760px]">
+    <SectionLabel>Результат обучения</SectionLabel>
+    <h2 class="text-h2 font-semibold text-ink">Что вы будете уметь после программы</h2>
+  </div>
+
+  <div class="stagger-grid grid gap-x-10 gap-y-8 md:grid-cols-2">
+    {
+      outcomes.map((o) => (
+        <div class="flex gap-4">
+          <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
+            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
+              <path
+                d="M5 13l4 4L19 7"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <div>
+            <h4 class="text-h4 font-semibold text-ink">{o.title}</h4>
+            <p class="mt-2 text-small text-muted">{o.text}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

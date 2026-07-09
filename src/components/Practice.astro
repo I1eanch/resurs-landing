@@ -1,0 +1,68 @@
+---
+import Section from './ui/Section.astro';
+import SectionLabel from './ui/SectionLabel.astro';
+
+const steps = [
+  {
+    title: 'Работа с кейсом',
+    text: 'Анамнез, общая картина здоровья и протокол восстановления: ЖКТ, питание, образ жизни, схема нутрицевтиков.',
+  },
+  {
+    title: 'Ведение клиента 3 месяца',
+    text: 'На 2 ступени вы сопровождаете реального клиента (своего или от школы) и фиксируете динамику.',
+  },
+  {
+    title: 'Защита кейса',
+    text: 'Оформляете кейс, представляете его и предоставляете запись консультации с клиентом.',
+  },
+  {
+    title: 'Документы об обучении',
+    text: 'После 1 ступени — диплом о профессиональной переподготовке, после 2 ступени — удостоверение о повышении квалификации.',
+  },
+];
+---
+
+<Section bg="paper">
+  <div class="grid gap-x-16 gap-y-14 lg:grid-cols-[1fr_420px] lg:items-start">
+    <div class="slide-left">
+      <SectionLabel>Практика и документы</SectionLabel>
+      <h2 class="text-h2 text-ink">Вы выходите с реальным опытом, а не только с конспектами</h2>
+
+      <ol class="mt-10 flex flex-col gap-7">
+        {
+          steps.map((s, i) => (
+            <li class="flex gap-5">
+              <span class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-accent font-display text-[17px] font-semibold text-on-accent">
+                {i + 1}
+              </span>
+              <div class="pt-1.5">
+                <b class="block font-body text-body font-semibold text-ink">{s.title}</b>
+                <span class="mt-1.5 block text-small text-muted">{s.text}</span>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+
+    <div class="deep scale-in rounded-panel bg-deep p-9 text-on-deep shadow-pop">
+      <div class="grid h-14 w-14 place-items-center rounded-full bg-accent-wash/10 text-accent-soft">
+        <svg viewBox="0 0 24 24" fill="none" class="h-7 w-7" aria-hidden="true">
+          <circle cx="12" cy="9" r="6" stroke="currentColor" stroke-width="1.6"></circle>
+          <path d="M9 14l-2 7 5-3 5 3-2-7" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+
+      <h3 class="mt-7 text-h3 text-on-deep">Два документа об обучении</h3>
+
+      <p class="mt-5 text-body text-on-deep-muted">
+        <b class="font-semibold text-on-deep">1 ступень</b> — диплом о профессиональной переподготовке.<br />
+        <b class="font-semibold text-on-deep">2 ступень</b> — удостоверение о повышении квалификации.
+      </p>
+
+      <p class="mt-7 border-t border-deep-line pt-7 text-body text-on-deep-muted">
+        Внутри программы — блок про легальную работу: самозанятость, ИП и оформление деятельности нутрициолога.
+      </p>
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,242 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Школа нутрициологов «Ресурс» — профессия нутрициолог. Набор в 6 поток',
+  description = 'Две ступени системного обучения профессии нутрициолога без медицинского образования. Старт 6 потока — 10 сентября 2026. Диплом о переподготовке и удостоверение о повышении квалификации.',
+} = Astro.props;
+
+const ogImage = new URL('/og.jpg', Astro.site ?? 'https://resurs.school').href;
+---
+
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <!-- viewport-fit=cover обязателен: без него не работает env(safe-area-inset-bottom) в StickyCta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="ru_RU" />
+
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`.replace('//', '/')} />
+
+    <!-- Оба preconnect обязательны: gstatic отдаёт сами файлы шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Golos+Text:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <a
+      href="#top"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-accent focus:text-on-accent focus:px-4 focus:py-2 focus:rounded-btn"
+    >
+      К содержанию
+    </a>
+
+    <slot />
+
+    <script>
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import '../scripts/ui';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      const REVEAL_SELECTOR = '.rv, .scale-in, .slide-left, .slide-right';
+      const CHILD_SELECTOR = '.stagger-grid > *, .hero-checks > *, .faq-stagger > *, .pricing-features li';
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        // Ранний выход: показываем всё сразу. Парный CSS-блок глушит длительности.
+        gsap.set(`${REVEAL_SELECTOR}, ${CHILD_SELECTOR}`, { opacity: 1, x: 0, y: 0, scale: 1 });
+        gsap.set('.sticky-cta', { yPercent: 0 });
+        document.querySelectorAll<SVGPathElement>('.animated-underline-path').forEach((p) => {
+          gsap.set(p, { strokeDashoffset: 0 });
+        });
+      } else {
+        /* ---- Слой 1: reveal-утилиты ---------------------------------
+           gsap.set() задаёт стартовое состояние ДО gsap.to(). Без него
+           элемент успевает отрисоваться в финальном виде — вспышка. */
+
+        const reveal = (
+          selector: string,
+          from: gsap.TweenVars,
+          to: gsap.TweenVars,
+          start = 'top 88%'
+        ) => {
+          const els = gsap.utils.toArray<HTMLElement>(selector);
+          if (!els.length) return;
+          gsap.set(els, from);
+          els.forEach((el) => {
+            gsap.to(el, {
+              ...to,
+              scrollTrigger: { trigger: el, start, once: true },
+            });
+          });
+        };
+
+        reveal('.rv', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out' });
+        reveal('.scale-in', { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' });
+        reveal('.slide-left', { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' });
+        reveal('.slide-right', { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.7, ease: 'power2.out' });
+
+        // Стаггер вешается на КОНТЕЙНЕР и анимирует детей.
+        // 0.05s на элемент: шесть карточек укладываются в 250ms.
+        gsap.utils.toArray<HTMLElement>('.stagger-grid').forEach((grid) => {
+          const kids = Array.from(grid.children);
+          if (!kids.length) return;
+          gsap.set(kids, { opacity: 0, y: 16 });
+          gsap.to(kids, {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: grid, start: 'top 85%', once: true },
+          });
+        });
+
+        gsap.utils.toArray<HTMLElement>('.faq-stagger').forEach((list) => {
+          const kids = Array.from(list.children);
+          if (!kids.length) return;
+          gsap.set(kids, { opacity: 0, y: 16 });
+          gsap.to(kids, {
+            opacity: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.05,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: list, start: 'top 85%', once: true },
+          });
+        });
+
+        /* ---- Слой 2: именные оркестровки ---------------------------- */
+
+        // Чек-лист героя — на первом экране, ScrollTrigger не нужен.
+        const heroChecks = document.querySelector('.hero-checks');
+        if (heroChecks) {
+          const kids = Array.from(heroChecks.children);
+          gsap.set(kids, { opacity: 0, x: -16 });
+          gsap.to(kids, { opacity: 1, x: 0, duration: 0.4, stagger: 0.06, ease: 'power2.out', delay: 0.4 });
+        }
+
+        // Параллакс свечений. Двигается transform — работа на композиторе.
+        gsap.utils.toArray<HTMLElement>('.hero-glow, .deco-glow').forEach((glow) => {
+          gsap.to(glow, {
+            y: -40,
+            ease: 'none',
+            scrollTrigger: { trigger: glow, start: 'top bottom', end: 'bottom top', scrub: 1.5 },
+          });
+        });
+
+        // Счётчики — только целые числа (3000 / 300 / 200 в трастбаре).
+        gsap.utils.toArray<HTMLElement>('[data-count]').forEach((el) => {
+          const target = Number(el.dataset.count);
+          if (!Number.isFinite(target)) return;
+          const counter = { value: 0 };
+          gsap.to(counter, {
+            value: target,
+            duration: 1.5,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+            onUpdate: () => {
+              el.textContent = Math.round(counter.value).toLocaleString('ru-RU');
+            },
+          });
+        });
+
+        // Ось «позвоночника» программы рисуется сверху вниз по скроллу.
+        gsap.utils.toArray<HTMLElement>('.timeline-line').forEach((line) => {
+          gsap.set(line, { scaleY: 0, transformOrigin: 'top center' });
+          gsap.to(line, {
+            scaleY: 1,
+            ease: 'none',
+            scrollTrigger: { trigger: line, start: 'top 80%', end: 'bottom 60%', scrub: 1 },
+          });
+        });
+
+        // back.out — единственное «пружинистое» easing в системе.
+        // Держим его только для мелких круглых объектов.
+        reveal('.day-marker', { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: 'back.out(1.7)' }, 'top 92%');
+        reveal('.speaker-avatar', { scale: 0.85, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: 'power2.out' });
+        reveal('.quote-mark', { opacity: 0, scale: 0.8, y: 8 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: 'power2.out' }, 'top 92%');
+
+        // Sticky-кнопка — единственная анимация, реагирующая на обратный скролл.
+        // Уход быстрее прихода: реакция на действие пользователя должна быть мгновенной.
+        const stickyCta = document.querySelector('.sticky-cta');
+        const heroSection = document.querySelector('.hero-section');
+        if (stickyCta && heroSection) {
+          gsap.set(stickyCta, { yPercent: 100 });
+          ScrollTrigger.create({
+            trigger: heroSection,
+            start: 'bottom 70%',
+            onEnter: () => gsap.to(stickyCta, { yPercent: 0, duration: 0.4, ease: 'power2.out' }),
+            onLeaveBack: () => gsap.to(stickyCta, { yPercent: 100, duration: 0.3, ease: 'power2.in' }),
+          });
+        }
+
+        // Карточка тарифа: три такта. GSAP управляет временем, CSS — эффектом.
+        const pricingCard = document.querySelector<HTMLElement>('.pricing-card');
+        if (pricingCard) {
+          const features = pricingCard.querySelectorAll('.pricing-features li');
+          gsap.set(features, { opacity: 0, x: -12 });
+          ScrollTrigger.create({
+            trigger: pricingCard,
+            start: 'top 88%',
+            once: true,
+            onEnter: () => {
+              // 0.9s — ждём, пока .scale-in доведёт карточку до opacity 1,
+              // иначе блик проходит по невидимой карточке.
+              gsap.delayedCall(0.9, () => pricingCard.classList.add('shimmer-active'));
+              gsap.to(features, { opacity: 1, x: 0, duration: 0.4, stagger: 0.06, ease: 'power2.out', delay: 0.5 });
+              gsap.delayedCall(1.6, () => pricingCard.classList.add('glow-active'));
+            },
+          });
+        }
+
+        /* ---- Слой 4: отрисовка SVG ---------------------------------- */
+
+        document.querySelectorAll<SVGPathElement>('.animated-underline-path').forEach((path, i) => {
+          const len = path.getTotalLength();
+          gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            duration: 1.5,
+            delay: i === 0 ? 0.7 : 0,
+            ease: 'power2.inOut',
+            scrollTrigger: { trigger: path, start: 'top 90%', once: true },
+          });
+        });
+
+        /* ---- Останов бесконечных циклов за пределами вьюпорта --------
+           .cta-pulse и .hero-glow крутятся вечно. Если они за экраном,
+           браузер всё равно тратит кадры. Гасим. */
+
+        const loops = document.querySelectorAll('.cta-pulse, .hero-glow');
+        if (loops.length) {
+          const io = new IntersectionObserver(
+            (entries) => entries.forEach((e) => e.target.classList.toggle('paused', !e.isIntersecting)),
+            { rootMargin: '80px' }
+          );
+          loops.forEach((el) => io.observe(el));
+        }
+      }
+    </script>
+  </body>
+</html>

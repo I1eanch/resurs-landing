@@ -4,6 +4,7 @@ import SectionLabel from './ui/SectionLabel.astro';
 import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
 import { pricing } from '../data/pricing';
+import CheckIcon from './ui/CheckIcon.astro';
 ---
 
 <Section id="price" bg="paper">
@@ -61,9 +62,7 @@ import { pricing } from '../data/pricing';
             <ul class:list={['mt-7 space-y-3', tier.featured && 'pricing-features']}>
               {tier.features.map((f) => (
                 <li class="flex gap-3 text-small text-muted">
-                  <svg viewBox="0 0 24 24" fill="none" class="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                    <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" />
-                  </svg>
+                  <CheckIcon class="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                   {f}
                 </li>
               ))}

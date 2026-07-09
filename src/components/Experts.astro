@@ -5,6 +5,7 @@ import SectionLabel from './ui/SectionLabel.astro';
 import marina from '../assets/img/marina-zhigulskaya.jpg';
 import asel from '../assets/img/asel-tumanova.jpg';
 import alena from '../assets/img/alena-belyanina.jpg';
+import CheckIcon from './ui/CheckIcon.astro';
 
 /* Кадры разного формата (портрет, горизонталь 2000×1333, квадрат 1024×1024)
    приведены к одной пропорции 4/5 — object-top держит лицо в кадре. */
@@ -90,17 +91,13 @@ const experts = [
           <ul class="mt-5 space-y-3">
             {e.bullets.map((b) => (
               <li class="flex gap-3">
-                <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <CheckIcon class="mt-1 h-4 w-4 shrink-0 text-accent" />
                 <span class="text-small text-muted">{b}</span>
               </li>
             ))}
             {e.phBullet && (
               <li class="flex gap-3">
-                <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-                  <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+                <CheckIcon class="mt-1 h-4 w-4 shrink-0 text-accent" />
                 <span class="text-small text-muted">
                   <span class="ph">{e.phBullet}</span>
                 </span>

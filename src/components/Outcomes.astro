@@ -1,6 +1,7 @@
 ---
 import Section from './ui/Section.astro';
 import SectionLabel from './ui/SectionLabel.astro';
+import CheckIcon from './ui/CheckIcon.astro';
 
 const outcomes = [
   {
@@ -41,15 +42,7 @@ const outcomes = [
       outcomes.map((o) => (
         <div class="flex gap-4">
           <span class="mt-0.5 grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-on-accent">
-            <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4">
-              <path
-                d="M5 13l4 4L19 7"
-                stroke="currentColor"
-                stroke-width="1.6"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-            </svg>
+            <CheckIcon class="h-4 w-4" />
           </span>
           <div>
             <h4 class="text-h4 font-semibold text-ink">{o.title}</h4>

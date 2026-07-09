@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Section from './ui/Section.astro';
 import SectionLabel from './ui/SectionLabel.astro';
 import approachVisual from '../assets/img/approach-visual.png';
+import CheckIcon from './ui/CheckIcon.astro';
 
 const checks = [
   {
@@ -54,15 +55,7 @@ const us = [
           checks.map((c) => (
             <li class="flex gap-4">
               <span class="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-full bg-accent-wash text-accent-strong">
-                <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
-                  <path
-                    d="M5 13l4 4L19 7"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                  />
-                </svg>
+                <CheckIcon class="h-4 w-4" />
               </span>
               <div>
                 <b class="block font-body text-body font-semibold text-ink">{c.title}</b>
@@ -112,15 +105,7 @@ const us = [
             {
               us.map((u) => (
                 <li class="flex items-start gap-3 text-body text-on-deep-muted">
-                  <svg viewBox="0 0 24 24" fill="none" class="mt-1 h-[18px] w-[18px] shrink-0 text-accent-soft" aria-hidden="true">
-                    <path
-                      d="M5 13l4 4L19 7"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
+                  <CheckIcon class="mt-1 h-[18px] w-[18px] shrink-0 text-accent-soft" />
                   {u}
                 </li>
               ))

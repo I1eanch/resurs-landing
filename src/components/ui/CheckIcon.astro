@@ -1,0 +1,26 @@
+---
+/**
+ * Галочка. Единственный источник правды для этой иконки.
+ *
+ * До выноса она была скопирована в шести местах и нарисована пятью
+ * разными толщинами штриха (1.6 / 1.8 / 2 / 2.4). Дизайн-система
+ * требует единой толщины 1.4–1.6 для всех линейных иконок.
+ *
+ * Цвет наследуется через currentColor — задавайте его на родителе.
+ */
+interface Props {
+  class?: string;
+}
+
+const { class: className = 'h-4 w-4' } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" fill="none" class={className} aria-hidden="true">
+  <path
+    d="M5 13l4 4L19 7"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

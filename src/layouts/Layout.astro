@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { withBase } from '../lib/url';
+import { COHORT, START_DATE } from '../data/site';
 
 interface Props {
   title?: string;
@@ -8,8 +9,8 @@ interface Props {
 }
 
 const {
-  title = 'Школа нутрициологов «Ресурс» — профессия нутрициолог. Набор в 6 поток',
-  description = 'Две ступени системного обучения профессии нутрициолога без медицинского образования. Старт 6 потока — 10 сентября 2026. Диплом о переподготовке и удостоверение о повышении квалификации.',
+  title = `Школа нутрициологов «Ресурс» — профессия нутрициолог. Набор в ${COHORT} поток`,
+  description = `Две ступени системного обучения профессии нутрициолога без медицинского образования. Старт ${COHORT} потока — ${START_DATE}. Диплом о переподготовке и удостоверение о повышении квалификации.`,
 } = Astro.props;
 
 // og:image обязан быть абсолютным URL. Учитываем и base: на Pages сайт живёт
@@ -152,7 +153,9 @@ const ogImage = new URL(withBase('og.jpg'), Astro.site).href;
             ease: 'power2.out',
             scrollTrigger: { trigger: el, start: 'top 90%', once: true },
             onUpdate: () => {
-              el.textContent = Math.round(counter.value).toLocaleString('ru-RU');
+              // Без разделителя разрядов: в макете «3000+», а toLocaleString('ru-RU')
+              // дал бы «3 000+». Копирайт макета важнее рекомендации GUIDE.
+              el.textContent = String(Math.round(counter.value));
             },
           });
         });

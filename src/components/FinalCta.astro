@@ -4,6 +4,7 @@ import Section from './ui/Section.astro';
 import SectionLabel from './ui/SectionLabel.astro';
 import Button from './ui/Button.astro';
 import finalBg from '../assets/img/final-cta-bg.jpg';
+import { START_DATE } from '../data/site';
 ---
 
 <Section id="lead" bg="final">
@@ -54,7 +55,7 @@ import finalBg from '../assets/img/final-cta-bg.jpg';
     </div>
 
     <p class="mt-8 text-small text-on-deep-muted">
-      Старт 10 сентября 2026 · мест ограниченное количество · рассрочка
+      Старт {START_DATE} · мест ограниченное количество · рассрочка
     </p>
   </div>
 </Section>

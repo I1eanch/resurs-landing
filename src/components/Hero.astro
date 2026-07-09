@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Button from './ui/Button.astro';
 import heroBg from '../assets/img/hero-bg.jpg';
+import { COHORT, START_DATE, CTA_PRIMARY } from '../data/site';
 
 const facts = [
   { value: '2 ступени', label: 'базовая профессия + уровень PRO' },
@@ -62,7 +63,7 @@ const facts = [
       class="inline-flex items-center gap-2.5 rounded-pill border border-accent/25 bg-surface/70 px-4 py-2 font-body text-[13px] font-medium text-accent-strong"
     >
       <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-accent"></span>
-      Школа нутрициологов «Ресурс» · Набор в 6 поток · Старт 10 сентября 2026
+      Школа нутрициологов «Ресурс» · Набор в {COHORT} поток · Старт {START_DATE}
     </span>
 
     <h1 class="mt-7">
@@ -93,7 +94,7 @@ const facts = [
 
     {/* На узком экране кнопки разной ширины встают рваной лесенкой — тянем на всю ширину. */}
     <div class="mt-9 flex flex-wrap gap-3.5 max-sm:flex-col">
-      <Button href="#price" size="lg" class="cta-pulse max-sm:w-full">Записаться в 6 поток</Button>
+      <Button href="#price" size="lg" class="cta-pulse max-sm:w-full">{CTA_PRIMARY}</Button>
       <Button href="#program" variant="line" size="lg" class="max-sm:w-full">Смотреть программу</Button>
     </div>
 

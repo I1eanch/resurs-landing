@@ -6,6 +6,7 @@ import marina from '../assets/img/marina-zhigulskaya.jpg';
 import asel from '../assets/img/asel-tumanova.jpg';
 import alena from '../assets/img/alena-belyanina.jpg';
 import CheckIcon from './ui/CheckIcon.astro';
+import { stats } from '../data/site';
 
 /* Кадры разного формата (портрет, горизонталь 2000×1333, квадрат 1024×1024)
    приведены к одной пропорции 4/5 — object-top держит лицо в кадре. */
@@ -17,9 +18,9 @@ const experts = [
     name: 'Марина Жигульская',
     bullets: [
       'Нутрициолог с опытом более 6 лет',
-      'Лично помогла восстановить здоровье более 300 людям',
-      'Обучила более 3000 учеников школы «Ресурс»',
-      'Выпустила более 200 практикующих нутрициологов',
+      `Лично помогла восстановить здоровье более ${stats.restored} людям`,
+      `Обучила более ${stats.students} учеников школы «Ресурс»`,
+      `Выпустила более ${stats.practitioners} практикующих нутрициологов`,
     ],
     phBullet: null,
     caption: null,

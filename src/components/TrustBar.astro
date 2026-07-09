@@ -3,10 +3,12 @@
  * Полоса доверия. Счётчик анимирует только цифру — знак «+»
  * вынесен в отдельный span, иначе data-count перезапишет его.
  */
-const stats = [
-  { count: 3000, label: 'учеников школы' },
-  { count: 300, label: 'восстановили здоровье с Мариной лично' },
-  { count: 200, label: 'практикующих нутрициологов' },
+import { stats } from '../data/site';
+
+const items = [
+  { count: stats.students, label: 'учеников школы' },
+  { count: stats.restored, label: 'восстановили здоровье с Мариной лично' },
+  { count: stats.practitioners, label: 'практикующих нутрициологов' },
 ];
 ---
 
@@ -31,11 +33,12 @@ const stats = [
 
     <div class="stagger-grid grid gap-8 sm:grid-cols-3 lg:gap-12">
       {
-        stats.map((s) => (
+        items.map((s) => (
           <div class="border-t border-line-strong pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
+            {/* Между <b> и «+» не должно быть переноса строки: он отрендерится
+                пробелом, и получится «3000 +» вместо «3000+». */}
             <p class="font-display text-[28px] font-semibold leading-none text-deep">
-              <b class="[font-weight:inherit]" data-count={s.count}>0</b>
-              <span>+</span>
+              <b class="[font-weight:inherit]" data-count={s.count}>0</b><span>+</span>
             </p>
             <span class="mt-2 block text-small text-muted">{s.label}</span>
           </div>

@@ -1,5 +1,6 @@
 ---
 import Button from './ui/Button.astro';
+import { CTA_PRIMARY } from '../data/site';
 
 const links = [
   { href: '#who', label: 'Нутрициолог', mobileLabel: 'Кто такой нутрициолог' },
@@ -64,6 +65,6 @@ const links = [
         </a>
       ))
     }
-    <Button href="#price" fullWidth class="mt-3">Записаться в 6 поток</Button>
+    <Button href="#price" fullWidth class="mt-3">{CTA_PRIMARY}</Button>
   </div>
 </header>

@@ -5,6 +5,7 @@ import Badge from './ui/Badge.astro';
 import Button from './ui/Button.astro';
 import { pricing } from '../data/pricing';
 import CheckIcon from './ui/CheckIcon.astro';
+import { START_DATE } from '../data/site';
 ---
 
 <Section id="price" bg="paper">
@@ -12,7 +13,7 @@ import CheckIcon from './ui/CheckIcon.astro';
     <SectionLabel>Тарифы 6 потока</SectionLabel>
     <h2 class="text-h2 font-semibold text-ink">Выберите формат участия</h2>
     <p class="mt-5 text-lead text-muted">
-      Старт 10 сентября 2026. Мы делаем упор не на количество, а на качество: никаких огромных потоков и обучения без
+      Старт {START_DATE}. Мы делаем упор не на количество, а на качество: никаких огромных потоков и обучения без
       обратной связи — поэтому число мест ограничено. Начать можно с первой ступени, а можно сразу взять обе — так
       выгоднее. Доступна рассрочка.
     </p>

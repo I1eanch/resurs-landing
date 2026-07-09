@@ -13,9 +13,10 @@ const {
   description = `Две ступени системного обучения профессии нутрициолога без медицинского образования. Старт ${COHORT} потока — ${START_DATE}. Диплом о переподготовке и удостоверение о повышении квалификации.`,
 } = Astro.props;
 
-// og:image обязан быть абсолютным URL. Учитываем и base: на Pages сайт живёт
-// в подпапке, и `/og.jpg` вёл бы в корень домена — на 404.
+// og:image обязан быть абсолютным URL. Через withBase — на случай, если сайт
+// когда-нибудь переедет в подпапку: тогда `/og.jpg` вёл бы в корень домена.
 const ogImage = new URL(withBase('og.jpg'), Astro.site).href;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -28,8 +29,10 @@ const ogImage = new URL(withBase('og.jpg'), Astro.site).href;
 
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />

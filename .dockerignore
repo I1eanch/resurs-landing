@@ -8,3 +8,6 @@ Accets
 Plans
 *.log
 .DS_Store
+
+# Артефакты Playwright MCP
+.playwright-mcp

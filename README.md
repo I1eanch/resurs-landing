@@ -2,7 +2,7 @@
 
 Одностраничный продающий лендинг набора в 6 поток. Старт — 10 сентября 2026.
 
-**Демо:** https://i1eanch.github.io/resurs-landing/
+**Прод:** https://scholnutrition.nutritionforyou.kz
 
 ---
 
@@ -14,7 +14,7 @@
 | Стили | Tailwind CSS v4 через `@tailwindcss/vite`, токены в `@theme` |
 | Анимации | GSAP 3 + ScrollTrigger, один скрипт на весь сайт |
 | Изображения | `astro:assets` — автоматический WebP и `srcset` |
-| Раздача | nginx в multi-stage Docker; превью — GitHub Pages |
+| Раздача | nginx в multi-stage Docker, деплой через Dokploy |
 
 Зависимостей ровно четыре. Ни React, ни Vue, ни клиентского роутера.
 
@@ -29,10 +29,11 @@ npm run build     # сборка в dist/
 npm run preview   # проверить собранное
 ```
 
-Для сборки под GitHub Pages (с префиксом `/resurs-landing`):
+Домен задаётся переменной `SITE_URL` — из него Astro запекает `og:image`,
+`canonical` и `sitemap.xml`. Без переменной берётся боевой домен:
 
 ```bash
-DEPLOY_TARGET=pages npm run build
+SITE_URL=https://staging.example.kz npm run build
 ```
 
 Docker:
@@ -192,8 +193,58 @@ rolldown-биндингом. Плагин компилируется под од
 
 ## Деплой
 
-Пуш в `main` запускает `.github/workflows/deploy.yml`: сборка с `DEPLOY_TARGET=pages` и публикация на GitHub Pages.
+Сервер — Dokploy. Пуш в `main` запускает пересборку образа и перезапуск контейнера.
 
-Один раз нужно включить в настройках репозитория: **Settings → Pages → Source: GitHub Actions**.
+### Настройки в панели
 
-Продакшен собирается тем же кодом в Docker — там `base` остаётся `/`.
+| Поле | Значение |
+|---|---|
+| Provider | Github → `resurs-landing` |
+| Branch | `main` |
+| Build Path | `/` |
+| Trigger Type | On Push, Autodeploy включён |
+| **Build Type** | **Dockerfile** (не Nixpacks) |
+| Dockerfile Path | `Dockerfile` |
+| Publish Directory | пусто |
+| Domains → Host | `scholnutrition.nutritionforyou.kz` |
+| Domains → Container Port | `80` |
+| Domains → HTTPS | включить, сертификат Let's Encrypt |
+
+**Build Type обязан быть Dockerfile.** Nixpacks попытается угадать способ сборки
+и раздачи Astro сам, и потеряет настроенный nginx: gzip, immutable-кэш, страницу 404
+и относительные редиректы.
+
+### Домен
+
+Домен нужен **на этапе сборки**: Astro запекает его в `og:image`, `canonical` и `sitemap.xml`.
+Он лежит в `Dockerfile` как `ARG SITE_URL` со значением по умолчанию, поэтому образ соберётся
+верно даже без настроек в панели. При смене домена поменяйте либо этот дефолт, либо передайте
+build-аргумент `SITE_URL`.
+
+Переменная окружения в разделе Environment на это **не влияет**: она попадёт в контейнер
+во время исполнения, когда HTML уже собран.
+
+### Локальная проверка образа
+
+Ровно то, что соберёт сервер:
+
+```bash
+docker build -t resurs-landing .
+docker run --rm -p 8080:80 resurs-landing
+```
+
+Что проверять: `/` → 200, `/oferta/` → 200, `/несуществующая` → **404** (а не 200 с главной),
+`Cache-Control: no-cache` на HTML и `immutable` на `/_astro/*`, `Location` у редиректов —
+относительный.
+
+### Ловушки nginx
+
+- **`try_files $uri $uri/ /index.html`** отдал бы главную с кодом 200 на любой битый адрес.
+  У нас `=404` и `error_page 404 /404.html`.
+- **`expires 1y` вместе с `add_header Cache-Control`** отдаёт два разных заголовка
+  `Cache-Control` в одном ответе. Оставлен только `add_header`.
+- **`absolute_redirect off`** обязателен: TLS терминирует Traefik, и без этой директивы
+  nginx строил бы `Location: http://…`, уводя человека с https и возвращая лишним прыжком.
+- **`add_header` в `location` перекрывает серверные**, а не дополняет. Поэтому заголовки
+  безопасности повторены в каждом блоке.
+

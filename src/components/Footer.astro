@@ -5,8 +5,9 @@
  */
 import { withBase } from '../lib/url';
 
-const oferta = withBase('oferta');
-const politika = withBase('politika');
+// Со слэшем на конце: без него nginx отвечает 301 на /oferta/.
+const oferta = withBase('oferta/');
+const politika = withBase('politika/');
 
 const links = [
   { href: '#program', label: 'Программа' },

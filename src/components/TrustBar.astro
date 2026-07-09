@@ -12,7 +12,7 @@ const stats = [
 
 <div class="border-b border-line bg-surface-alt">
   <div
-    class="mx-auto flex max-w-[1140px] flex-col gap-9 px-6 py-11 lg:flex-row lg:items-center lg:justify-between lg:gap-14"
+    class="mx-auto flex max-w-[var(--container-max)] flex-col gap-9 px-6 py-11 lg:flex-row lg:items-center lg:justify-between lg:gap-14"
   >
     <p class="flex items-center gap-3.5 font-display text-h4 font-semibold text-ink">
       <span class="grid h-11 w-11 shrink-0 place-items-center rounded-card bg-accent-wash text-accent-strong">
@@ -34,7 +34,7 @@ const stats = [
         stats.map((s) => (
           <div class="border-t border-line-strong pt-4 sm:border-t-0 sm:border-l sm:pt-0 sm:pl-5">
             <p class="font-display text-[28px] font-semibold leading-none text-deep">
-              <b data-count={s.count}>0</b>
+              <b class="[font-weight:inherit]" data-count={s.count}>0</b>
               <span>+</span>
             </p>
             <span class="mt-2 block text-small text-muted">{s.label}</span>

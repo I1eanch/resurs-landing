@@ -1,7 +1,7 @@
 ---
 /** Капсула с заглавными буквами. */
 interface Props {
-  variant?: 'accent' | 'discount' | 'tier' | 'dark';
+  variant?: 'accent' | 'tier';
   class?: string;
 }
 
@@ -9,9 +9,7 @@ const { variant = 'accent', class: className = '' } = Astro.props;
 
 const variants: Record<string, string> = {
   accent: 'bg-accent text-on-accent',
-  discount: 'bg-accent text-on-accent',
   tier: 'bg-accent-wash text-accent-strong',
-  dark: 'bg-deep text-on-deep',
 };
 ---
 

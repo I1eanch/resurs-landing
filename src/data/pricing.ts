@@ -21,6 +21,17 @@ export interface PricingTier {
   badge?: string;
 }
 
+/**
+ * Атомы, из которых собираются и карточки тарифов, и ответ в FAQ.
+ * До выноса суммы рассрочки жили в двух файлах, и правка цены
+ * молча оставила бы FAQ врать.
+ */
+export const INSTALLMENT_MONTHS = 12;
+export const monthly = {
+  base: '12 416 ₽/мес',
+  full: '21 583 ₽/мес',
+} as const;
+
 export const pricing: PricingTier[] = [
   {
     plan: 'Тариф 1 · Ступень 1',
@@ -29,7 +40,7 @@ export const pricing: PricingTier[] = [
     oldPrice: '298 000 ₽',
     discount: '−50%',
     amount: '149 000 ₽',
-    per: 'или 12 416 ₽/мес в рассрочку на 12 месяцев',
+    per: `или ${monthly.base} в рассрочку на ${INSTALLMENT_MONTHS} месяцев`,
     features: [
       'Все 6 модулей ступени «Фундамент»',
       'Встречи с Мариной и кураторами',
@@ -47,7 +58,7 @@ export const pricing: PricingTier[] = [
     oldPrice: '596 000 ₽',
     discount: '−56%',
     amount: '259 000 ₽',
-    per: 'или 21 583 ₽/мес в рассрочку на 12 месяцев',
+    per: `или ${monthly.full} в рассрочку на ${INSTALLMENT_MONTHS} месяцев`,
     saving: 'экономия 337 000 ₽',
     features: [
       'Всё из тарифа «Фундамент»',

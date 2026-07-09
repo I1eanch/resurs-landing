@@ -68,8 +68,8 @@ const experts = [
             <Image
               src={e.photo}
               alt={e.alt}
-              widths={[340, 680]}
-              sizes="(max-width:768px) 90vw, 340px"
+              widths={[380, 760]}
+              sizes="(max-width:768px) 90vw, 260px"
               format="webp"
               quality={78}
               class="h-full w-full object-cover object-top"
@@ -98,9 +98,7 @@ const experts = [
             {e.phBullet && (
               <li class="flex gap-3">
                 <CheckIcon class="mt-1 h-4 w-4 shrink-0 text-accent" />
-                <span class="text-small text-muted">
-                  <span class="ph">{e.phBullet}</span>
-                </span>
+                <span class="text-small text-muted"><span class="ph">{e.phBullet}</span></span>
               </li>
             )}
           </ul>

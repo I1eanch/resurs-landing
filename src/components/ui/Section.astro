@@ -19,7 +19,7 @@ const backgrounds: Record<string, string> = {
   paper: 'bg-paper',
   tint: 'bg-surface-alt',
   deep: 'deep bg-deep text-on-deep',
-  final: 'final bg-deep-3 text-on-deep',
+  final: 'deep bg-deep-3 text-on-deep',
 };
 ---
 
@@ -28,7 +28,7 @@ const backgrounds: Record<string, string> = {
   class:list={['relative overflow-hidden py-[var(--section-y)]', backgrounds[bg], className]}
 >
   <slot name="backdrop" />
-  <div class:list={['relative z-10 mx-auto max-w-[1140px] px-6', containerClass]}>
+  <div class:list={['relative z-10 mx-auto max-w-[var(--container-max)] px-6', containerClass]}>
     <slot />
   </div>
 </section>

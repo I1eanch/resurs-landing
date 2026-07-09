@@ -41,6 +41,8 @@ const panels: { key: string; label: string; items: Testimonial[] }[] = [
             i === 0 && 'active',
           ]}
           data-case={p.key}
+          id={`case-tab-${p.key}`}
+          aria-controls={`case-panel-${p.key}`}
           aria-selected={i === 0 ? 'true' : 'false'}
           tabindex={i === 0 ? 0 : -1}
         >
@@ -52,7 +54,13 @@ const panels: { key: string; label: string; items: Testimonial[] }[] = [
 
   {
     panels.map((p, i) => (
-      <div class:list={['case-panel', i === 0 && 'active']} data-case={p.key}>
+      <div
+        class:list={['case-panel', i === 0 && 'active']}
+        data-case={p.key}
+        id={`case-panel-${p.key}`}
+        role="tabpanel"
+        aria-labelledby={`case-tab-${p.key}`}
+      >
         {p.key === 'clients' && (
           <div class="stagger-grid mb-12 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {results.map((r) => (

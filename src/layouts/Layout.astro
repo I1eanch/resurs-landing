@@ -12,7 +12,9 @@ const {
   description = 'Две ступени системного обучения профессии нутрициолога без медицинского образования. Старт 6 потока — 10 сентября 2026. Диплом о переподготовке и удостоверение о повышении квалификации.',
 } = Astro.props;
 
-const ogImage = new URL('/og.jpg', Astro.site ?? 'https://resurs.school').href;
+// og:image обязан быть абсолютным URL. Учитываем и base: на Pages сайт живёт
+// в подпапке, и `/og.jpg` вёл бы в корень домена — на 404.
+const ogImage = new URL(withBase('og.jpg'), Astro.site).href;
 ---
 
 <!doctype html>
@@ -68,7 +70,7 @@ const ogImage = new URL('/og.jpg', Astro.site ?? 'https://resurs.school').href;
       gsap.registerPlugin(ScrollTrigger);
 
       const REVEAL_SELECTOR = '.rv, .scale-in, .slide-left, .slide-right';
-      const CHILD_SELECTOR = '.stagger-grid > *, .hero-checks > *, .faq-stagger > *, .pricing-features li';
+      const CHILD_SELECTOR = '.stagger-grid > *, .hero-checks > *, .pricing-features li';
 
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         // Ранний выход: показываем всё сразу. Парный CSS-блок глушит длительности.
@@ -117,20 +119,6 @@ const ogImage = new URL('/og.jpg', Astro.site ?? 'https://resurs.school').href;
             stagger: 0.05,
             ease: 'power2.out',
             scrollTrigger: { trigger: grid, start: 'top 85%', once: true },
-          });
-        });
-
-        gsap.utils.toArray<HTMLElement>('.faq-stagger').forEach((list) => {
-          const kids = Array.from(list.children);
-          if (!kids.length) return;
-          gsap.set(kids, { opacity: 0, y: 16 });
-          gsap.to(kids, {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            stagger: 0.05,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: list, start: 'top 85%', once: true },
           });
         });
 

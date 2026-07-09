@@ -10,7 +10,7 @@
  */
 interface Props {
   variant?: 'primary' | 'line' | 'ghost';
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   href?: string;
   fullWidth?: boolean;
   class?: string;
@@ -33,6 +33,7 @@ const base =
   'transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-standard';
 
 const sizes: Record<string, string> = {
+  sm: 'text-[14px] px-6 py-2.5',
   md: 'text-[16px] px-[30px] py-4',
   lg: 'text-[17px] px-10 py-[19px]',
 };

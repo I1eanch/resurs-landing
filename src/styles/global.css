@@ -84,9 +84,7 @@
 /* Значения, которым не место в @theme: они не порождают утилит. */
 :root {
   --container-max:    1140px;
-  --container-gutter: 24px;
   --section-y:        clamp(58px, 8vw, 112px);
-  --dur-fast:  180ms;
   --dur-mid:   250ms;
   --dur-slow:  400ms;
 }
@@ -136,14 +134,16 @@
 @layer components {
 
   /* ---- Плейсхолдер: данные, которых у нас пока нет ---------------- */
+  /* Курсива здесь нет намеренно: текст набран Golos Text, у которого нет
+     курсивного начертания, и браузер наклонял бы его синтетически.
+     Подсветки и пунктира достаточно, чтобы плейсхолдер бросался в глаза. */
   .ph {
     background: var(--color-accent-wash);
     border-bottom: 1px dashed rgba(18, 181, 171, 0.5);
     padding: 0 4px;
     color: var(--color-accent-strong);
-    font-style: italic;
   }
-  .deep .ph, .final .ph {
+  .deep .ph {
     background: rgba(18, 181, 171, 0.12);
     color: var(--color-accent-soft);
   }
@@ -188,7 +188,7 @@
 
   /* Бесконечные циклы не должны крутиться за пределами вьюпорта —
      класс вешает IntersectionObserver из Layout.astro. */
-  .paused, .paused::after { animation-play-state: paused !important; }
+  .paused, .paused::after { animation-play-state: paused; }
 
   /* ---- Аккордеоны: и модули программы, и FAQ ----------------------
      max-height даёт рваную анимацию и требует измерений в JS.
@@ -311,11 +311,9 @@
     stroke-dasharray: 600;
     stroke-dashoffset: 600;
   }
-  .deep .animated-underline-svg,
-  .final .animated-underline-svg { color: var(--color-accent-soft); }
+  .deep .animated-underline-svg { color: var(--color-accent-soft); }
 
   /* ---- Ось «позвоночника» программы -------------------------------- */
-  .timeline-line { transform-origin: top center; }
 }
 
 /* =====================================================================

@@ -11,12 +11,12 @@ const links = [
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper/85 backdrop-blur-[10px]">
-  <div class="mx-auto flex h-[66px] max-w-[1140px] items-center justify-between px-6">
+  <div class="mx-auto flex h-[66px] max-w-[var(--container-max)] items-center justify-between px-6">
     <a href="#top" class="flex items-center gap-2.5 font-body text-[15px] font-semibold text-ink no-underline">
-      <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent" aria-hidden="true">
+      <span class="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-accent text-on-accent" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" class="h-[18px] w-[18px]">
-          <path d="M12 3c3.5 2 6 5 6 9a6 6 0 1 1-12 0c0-4 2.5-7 6-9z" stroke="#fff" stroke-width="1.6" />
-          <path d="M12 9v8M12 12l2.5-2M12 14l-2.5-2" stroke="#fff" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M12 3c3.5 2 6 5 6 9a6 6 0 1 1-12 0c0-4 2.5-7 6-9z" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 9v8M12 12l2.5-2M12 14l-2.5-2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
         </svg>
       </span>
       <span class="max-sm:hidden">Школа нутрициологов «Ресурс»</span>
@@ -37,7 +37,7 @@ const links = [
     </nav>
 
     <div class="hidden min-[901px]:block">
-      <Button href="#price" class="!px-6 !py-2.5 !text-[14px]">Записаться</Button>
+      <Button href="#price" size="sm">Записаться</Button>
     </div>
 
     <button

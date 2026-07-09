@@ -72,7 +72,14 @@ import { START_DATE } from '../data/site';
               ))}
             </ul>
 
-            <Button href="#lead" variant={tier.featured ? 'primary' : 'line'} size="lg" fullWidth class="mt-8">
+            <Button
+              data-pay={tier.key}
+              data-pay-fallback={tier.widget.formUrl}
+              variant={tier.featured ? 'primary' : 'line'}
+              size="lg"
+              fullWidth
+              class="mt-8"
+            >
               {tier.cta}
             </Button>
           </article>

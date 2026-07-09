@@ -1,0 +1,63 @@
+---
+/**
+ * Модальные окна оплаты — по одному на тариф.
+ *
+ * Форма живёт в <iframe> на домене GetCourse: перекрасить её под палитру
+ * школы нельзя, поэтому окно вокруг держим нейтральным и не спорим с ней.
+ *
+ * Скрипт виджета НЕ вставляется в разметку: он бы отработал на DOMContentLoaded
+ * и потянул чужой iframe при каждой загрузке страницы. Вместо этого его
+ * подгружает scripts/payment.ts при первом открытии окна.
+ *
+ * Нативный <dialog> взят намеренно: он сам даёт фокус-ловушку, закрытие по Esc
+ * и подложку. Рукописный focus trap на платёжной форме — лишний риск.
+ */
+import { pricing } from '../data/pricing';
+---
+
+{
+  pricing.map((tier) => (
+    <dialog
+      id={`pay-${tier.key}`}
+      class="gc-dialog"
+      aria-labelledby={`pay-title-${tier.key}`}
+    >
+      {/* Форма выше окна и окно скроллится — шапку держим липкой,
+          иначе крестик уезжает вместе с заголовком. */}
+      <div class="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-line bg-surface px-6 py-5">
+        <div>
+          <p class="font-body text-eyebrow font-semibold uppercase tracking-eyebrow text-accent-strong">
+            {tier.plan}
+          </p>
+          <h2 id={`pay-title-${tier.key}`} class="mt-1 font-display text-h4 font-semibold text-ink">
+            {tier.title} — {tier.amount}
+          </h2>
+        </div>
+        <button
+          type="button"
+          data-pay-close
+          class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-surface-alt text-ink transition-colors duration-200 ease-standard hover:bg-accent hover:text-on-accent"
+          aria-label="Закрыть окно оплаты"
+        >
+          <svg viewBox="0 0 24 24" fill="none" class="h-4 w-4" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+
+      <p data-pay-loading class="px-6 py-10 text-center text-small text-muted">
+        Загружаем форму оплаты…
+      </p>
+
+      {/* Скрипт GetCourse вставит <iframe> внутрь этого div и удалит себя.
+          Родителю он инлайном пропишет overflow: hidden — поэтому нужен
+          отдельный контейнер, а не карточка тарифа. */}
+      <div
+        data-pay-mount
+        data-gc-id={tier.widget.domId}
+        data-gc-src={tier.widget.src}
+        data-gc-label={tier.widget.productLabel}
+      />
+    </dialog>
+  ))
+}

@@ -8,13 +8,16 @@
  *
  * Правило дизайн-системы: одна .primary-кнопка на блок.
  */
-interface Props {
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = {
   variant?: 'primary' | 'line' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   fullWidth?: boolean;
   class?: string;
-}
+} & HTMLAttributes<'button'> &
+  HTMLAttributes<'a'>;
 
 const {
   variant = 'primary',
@@ -22,6 +25,7 @@ const {
   href,
   fullWidth = false,
   class: className = '',
+  ...rest
 } = Astro.props;
 
 // ИНВАРИАНТ: каждый вариант обязан задать цвет рамки. База даёт только ширину.
@@ -54,11 +58,11 @@ const classes = [base, sizes[size], variants[variant], fullWidth && 'w-full', cl
 
 {
   href ? (
-    <a href={href} class={classes}>
+    <a href={href} class={classes} {...rest}>
       <slot />
     </a>
   ) : (
-    <button type="button" class={classes}>
+    <button type="button" class={classes} {...rest}>
       <slot />
     </button>
   )

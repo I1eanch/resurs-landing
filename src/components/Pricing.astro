@@ -22,8 +22,11 @@ import { START_DATE } from '../data/site';
   <div class="stagger-grid grid items-start gap-7 lg:grid-cols-2">
     {
       pricing.map((tier) => (
-        /* Бейдж живёт в обёртке, а не в .pricing-card: у карточки overflow:hidden
-           ради блика, и капсула на -top-3 внутри неё была бы срезана. */
+        /* Обёртка разводит две анимации. .stagger-grid анимирует прямых детей,
+           и без неё на карточку легли бы сразу два конкурирующих твина opacity:
+           от стаггера и от её собственного .scale-in. Стаггер достаётся обёртке,
+           .scale-in — карточке. Заодно бейдж крепится к обёртке и не участвует
+           в масштабировании карточки. */
         <div class="relative">
           {tier.badge && (
             <Badge variant="accent" class="absolute -top-3 left-9 z-10">

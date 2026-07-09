@@ -3,9 +3,10 @@
  * Не Section: у подвала свой ритм и свой контейнер.
  * Класс `deep` — маркер тёмного контекста, за него цепляется `.deep .ph`.
  */
-const base = import.meta.env.BASE_URL;
-const oferta = `${base}oferta`.replace('//', '/');
-const politika = `${base}politika`.replace('//', '/');
+import { withBase } from '../lib/url';
+
+const oferta = withBase('oferta');
+const politika = withBase('politika');
 
 const links = [
   { href: '#program', label: 'Программа' },

@@ -37,8 +37,15 @@ const ogImage = new URL('/og.jpg', Astro.site ?? 'https://resurs.school').href;
     <!-- Оба preconnect обязательны: gstatic отдаёт сами файлы шрифтов -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/*
+      Грузим только те начертания, что действительно применяются:
+        Spectral 400 — курсив героя; 500 — h1–h4 из @layer base; 600 — font-semibold
+        Spectral italic 400 и 500 — акцент героя и подчёркнутые фразы
+        Golos    400 — текст; 500/600 — подписи и кнопки; 700 — <b> и бейджи
+      Вес Spectral 300 убран: font-light не встречается в проекте ни разу.
+    */}
     <link
-      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Golos+Text:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Golos+Text:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
   </head>

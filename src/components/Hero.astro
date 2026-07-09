@@ -15,7 +15,8 @@ const facts = [
 ---
 
 <section id="top" class="hero-section relative overflow-hidden pt-[130px] pb-[clamp(56px,7vw,96px)]">
-  {/* Слой 1: акварельная текстура. Первый экран — грузим сразу, это LCP. */}
+  {/* Слой 1: акварельная текстура. eager — не ради LCP (он приходится на лид-абзац),
+      а чтобы текстура не вспыхнула поверх уже отрисованного текста. */}
   <Image
     src={heroBg}
     alt=""

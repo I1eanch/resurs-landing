@@ -24,10 +24,13 @@ const {
   class: className = '',
 } = Astro.props;
 
-// Цвет рамки задаёт КАЖДЫЙ вариант. В базе его нет намеренно: две утилиты
-// border-color с одинаковой специфичностью разрешаются порядком в готовом
-// CSS, а не порядком в атрибуте class — и `border-transparent` из базы
-// молча съедал рамку контурной кнопки.
+// ИНВАРИАНТ: каждый вариант обязан задать цвет рамки. База даёт только ширину.
+//
+// Две утилиты border-color на одном элементе разрешаются порядком в готовом CSS,
+// а не порядком в атрибуте class: `.border-transparent` эмитится позже
+// `.border-line-strong` и молча съедает рамку контурной кнопки. Дефолтный
+// border-color в Tailwind v4 — currentColor, поэтому вариант, забывший про цвет,
+// получит рамку цвета текста, и ничто на это не пожалуется.
 const base =
   'inline-flex items-center justify-center gap-2.5 font-body font-semibold rounded-btn no-underline cursor-pointer border ' +
   'transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-standard';

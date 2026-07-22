@@ -19,7 +19,7 @@
  *     достанется карточке тарифа и срежет её свечение.
  */
 
-const GETCOURSE_ORIGIN = 'https://socenium-e.getcourse.ru';
+const GETCOURSE_ORIGIN = 'https://iandmyhealth.ru';
 
 let lastFocused: HTMLElement | null = null;
 

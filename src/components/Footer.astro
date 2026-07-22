@@ -3,11 +3,6 @@
  * Не Section: у подвала свой ритм и свой контейнер.
  * Класс `deep` — маркер тёмного контекста, за него цепляется `.deep .ph`.
  */
-import { withBase } from '../lib/url';
-
-// Со слэшем на конце: без него nginx отвечает 301 на /oferta/.
-const oferta = withBase('oferta/');
-const politika = withBase('politika/');
 
 const links = [
   { href: '#program', label: 'Программа' },
@@ -61,17 +56,21 @@ const links = [
 
   <div class="border-t border-deep-line">
     <div class="mx-auto max-w-[var(--container-max)] px-6 py-8 text-small leading-body">
-      ИП Кобляков Артем Анатольевич · ИНН 246517375248 · ОГРНИП 324237500314271 · Краснодар · тел. +7 (923) 321-69-21 ·
-      artem@ellachoco.ru<br />
+      ТОО «NUTRITION SCHOOL» (БИН 240240035573)<br />
+      Z00Y7G5, г. Астана, ул. Кенесары, дом 65, кв/офис 47<br />
       <a
-        href={oferta}
+        href="https://nutritionforyou.kz/legal/oferta"
         class="text-on-deep-muted underline underline-offset-2 transition-colors duration-200 ease-standard hover:text-on-deep"
-        >Оферта</a
+        >Публичная оферта</a
       > · <a
-        href={politika}
+        href="https://nutritionforyou.kz/legal/privacy"
         class="text-on-deep-muted underline underline-offset-2 transition-colors duration-200 ease-standard hover:text-on-deep"
-        >Политика обработки персональных данных</a
-      > · <span class="ph">[ Согласие на обработку ]</span> · © 2026 Школа нутрициологов «Ресурс»
+        >Политика конфиденциальности</a
+      > · <a
+        href="https://nutritionforyou.kz/legal/consent"
+        class="text-on-deep-muted underline underline-offset-2 transition-colors duration-200 ease-standard hover:text-on-deep"
+        >Согласие на обработку персональных данных</a
+      >
     </div>
   </div>
 </footer>

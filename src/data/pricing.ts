@@ -1,7 +1,6 @@
 /**
- * Тарифы 6 потока. Все суммы перенесены из Maket.html (строки 858–890)
- * посимвольно: разделитель разрядов — обычный пробел, знак минуса — U+2212,
- * рубль — U+20BD. Правка любой цифры здесь = правка публичной оферты.
+ * Тарифы 6 потока. Разделитель разрядов — обычный пробел, знак минуса —
+ * U+2212, тенге — U+20B8. Правка любой цифры здесь = правка публичной цены.
  */
 /**
  * Виджет оплаты GetCourse. Скрипт находит сам себя по `domId`, вставляет
@@ -47,8 +46,8 @@ export interface PricingTier {
  */
 export const INSTALLMENT_MONTHS = 12;
 export const monthly = {
-  base: '12 416 ₽/мес',
-  full: '21 583 ₽/мес',
+  base: '82 500 ₸/мес',
+  full: '139 167 ₸/мес',
 } as const;
 
 export const pricing: PricingTier[] = [
@@ -57,15 +56,15 @@ export const pricing: PricingTier[] = [
     plan: 'Тариф 1 · Ступень 1',
     title: '«Фундамент»',
     desc: 'Профессия нутрициолог с нуля. После обучения вы уже можете консультировать.',
-    oldPrice: '298 000 ₽',
-    discount: '−50%',
-    amount: '149 000 ₽',
+    oldPrice: '1 820 000 ₸',
+    discount: '−46%',
+    amount: '990 000 ₸',
     per: `или ${monthly.base} в рассрочку на ${INSTALLMENT_MONTHS} месяцев`,
     widget: {
-      domId: '6156dfca526b1174e3c7d9cfba270bb7f59229ce',
-      src: 'https://socenium-e.getcourse.ru/pl/lite/widget/script?id=1628151',
-      formUrl: 'https://socenium-e.getcourse.ru/pl/lite/widget/widget?id=1628151',
-      productLabel: 'Профессия нутрициолог 2.0 - Фундамент · 149 000 руб.',
+      domId: 'cac7fabbb3e1e52c1d34b32fb0b0c7c22d85a527',
+      src: 'https://iandmyhealth.ru/pl/lite/widget/script?id=1633856',
+      formUrl: 'https://iandmyhealth.ru/pl/lite/widget/widget?id=1633856',
+      productLabel: 'Профессия нутрициолог 2.0 - Фундамент · 990 000 ₸',
     },
     features: [
       'Все 6 модулей ступени «Фундамент»',
@@ -82,17 +81,17 @@ export const pricing: PricingTier[] = [
     plan: 'Тариф 2 · Ступень 1 + 2',
     title: '«Фундамент» + «Система»',
     desc: 'Полный путь до нутрициолога PRO: максимум практики и глубины.',
-    oldPrice: '596 000 ₽',
-    discount: '−56%',
-    amount: '259 000 ₽',
+    oldPrice: '3 640 000 ₸',
+    discount: '−54%',
+    amount: '1 670 000 ₸',
     per: `или ${monthly.full} в рассрочку на ${INSTALLMENT_MONTHS} месяцев`,
     widget: {
-      domId: '781694e8d8a8ce4255d7930da5a17d8dd7bedbf2',
-      src: 'https://socenium-e.getcourse.ru/pl/lite/widget/script?id=1628168',
-      formUrl: 'https://socenium-e.getcourse.ru/pl/lite/widget/widget?id=1628168',
-      productLabel: 'Профессия нутрициолог 2.0 - Фундамент + Система · 259 000 руб.',
+      domId: '8b3ec97a2496bb867582f3147b15ed8692ce6417',
+      src: 'https://iandmyhealth.ru/pl/lite/widget/script?id=1633858',
+      formUrl: 'https://iandmyhealth.ru/pl/lite/widget/widget?id=1633858',
+      productLabel: 'Профессия нутрициолог 2.0 - Фундамент + Система · 1 670 000 ₸',
     },
-    saving: 'экономия 337 000 ₽',
+    saving: 'экономия 1 970 000 ₸',
     features: [
       'Всё из тарифа «Фундамент»',
       '6 модулей ступени «Система» (PRO)',
@@ -102,6 +101,6 @@ export const pricing: PricingTier[] = [
     ],
     cta: 'Записаться на две ступени',
     featured: true,
-    badge: 'Максимальная выгода · скидка 56%',
+    badge: 'Максимальная выгода · скидка 54%',
   },
 ];
